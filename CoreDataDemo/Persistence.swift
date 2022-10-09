@@ -9,14 +9,22 @@ import CoreData
 
 struct PersistenceController {
     static let shared = PersistenceController()
-
+    
     static var preview: PersistenceController = {
         let result = PersistenceController(inMemory: true)
         let viewContext = result.container.viewContext
-        for _ in 0..<10 {
-            let newItem = Item(context: viewContext)
-            newItem.timestamp = Date()
-        }
+        
+        let canada = CountryFactory.create(name: "Canada", context: viewContext)
+        
+        let _ = CityFactory.create(name: "Vancover", countryID: canada!.id! , population: 2632000,context: viewContext)
+        let _ = CityFactory.create(name: "Victoria", countryID: canada!.id! ,capital:true, population: 394000,context: viewContext)
+        let _ = CityFactory.create(name: "Toronto", countryID: canada!.id! , population: 6313000,context: viewContext)
+        
+        let usa = CountryFactory.create(name: "United States", context: viewContext)
+        let _ = CityFactory.create(name: "Seattle", countryID: usa!.id! , population: 4102100,context: viewContext)
+        let _ = CityFactory.create(name: "Denver", countryID: usa!.id! , capital:true,population: 2897000,context: viewContext)
+        let _ = CityFactory.create(name: "Washington D.C.", countryID: usa!.id! , population: 5434000,context: viewContext)
+        
         do {
             try viewContext.save()
         } catch {
@@ -27,9 +35,9 @@ struct PersistenceController {
         }
         return result
     }()
-
+    
     let container: NSPersistentContainer
-
+    
     init(inMemory: Bool = false) {
         container = NSPersistentContainer(name: "CoreDataDemo")
         if inMemory {
@@ -39,7 +47,7 @@ struct PersistenceController {
             if let error = error as NSError? {
                 // Replace this implementation with code to handle the error appropriately.
                 // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-
+                
                 /*
                  Typical reasons for an error here include:
                  * The parent directory does not exist, cannot be created, or disallows writing.
