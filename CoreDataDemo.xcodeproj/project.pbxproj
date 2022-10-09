@@ -26,6 +26,7 @@
 		54D6810828F2849600B43C86 /* CityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D6810728F2849600B43C86 /* CityView.swift */; };
 		54D6810E28F287BF00B43C86 /* CountryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D6810D28F287BF00B43C86 /* CountryView.swift */; };
 		54D6811028F2882F00B43C86 /* CountryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D6810F28F2882F00B43C86 /* CountryListView.swift */; };
+		54D6811228F2D28100B43C86 /* CityListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D6811128F2D28100B43C86 /* CityListView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +69,7 @@
 		54D6810728F2849600B43C86 /* CityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityView.swift; sourceTree = "<group>"; };
 		54D6810D28F287BF00B43C86 /* CountryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryView.swift; sourceTree = "<group>"; };
 		54D6810F28F2882F00B43C86 /* CountryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryListView.swift; sourceTree = "<group>"; };
+		54D6811128F2D28100B43C86 /* CityListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityListView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -199,6 +201,7 @@
 				54D6810728F2849600B43C86 /* CityView.swift */,
 				54D6810D28F287BF00B43C86 /* CountryView.swift */,
 				54D6810F28F2882F00B43C86 /* CountryListView.swift */,
+				54D6811128F2D28100B43C86 /* CityListView.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -339,6 +342,7 @@
 				54D680FA28F27F5500B43C86 /* Country+CoreDataProperties.swift in Sources */,
 				54D6811028F2882F00B43C86 /* CountryListView.swift in Sources */,
 				54D6810E28F287BF00B43C86 /* CountryView.swift in Sources */,
+				54D6811228F2D28100B43C86 /* CityListView.swift in Sources */,
 				54D680C828F27DFC00B43C86 /* ContentView.swift in Sources */,
 				54D680FC28F27F5500B43C86 /* City+CoreDataProperties.swift in Sources */,
 				54D6810128F280FA00B43C86 /* EntityFactory.swift in Sources */,
