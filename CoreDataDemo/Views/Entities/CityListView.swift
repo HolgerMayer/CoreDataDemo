@@ -11,12 +11,11 @@ struct CityListView: View {
     @Environment(\.managedObjectContext) private var viewContext
     
     @FetchRequest var fetchRequest: FetchedResults<City>
-    private var cities: FetchedResults<City>
     
     
     var body: some View {
         List {
-            ForEach (cities) { city in
+            ForEach (fetchRequest) { city in
                 Text(city.name!)
             }
             
@@ -28,7 +27,7 @@ struct CityListView: View {
         _fetchRequest = FetchRequest(
             sortDescriptors: [NSSortDescriptor(keyPath: \City.name, ascending: true)],predicate:  NSPredicate(format: "(countryID == %@)",country.id! as NSUUID),
             animation: .default)
-        self.cities = cities
+
     }
     
 }
