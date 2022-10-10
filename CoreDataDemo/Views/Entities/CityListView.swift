@@ -23,6 +23,7 @@ struct CityListView: View {
             }
             
         }
+        .navigationTitle("Cities")
     }
     
     init(country : Country){
