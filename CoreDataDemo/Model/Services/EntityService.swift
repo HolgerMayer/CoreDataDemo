@@ -1,5 +1,5 @@
 //
-//  EntityFactory.swift
+//  EntityService.swift
 //  CoreDataDemo
 //
 //  Created by Holger Mayer on 09.10.22.
@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 
 
-class EntityFactory {
+class EntityService {
     
     
     static func update(_ object: NSManagedObject, context : NSManagedObjectContext) {

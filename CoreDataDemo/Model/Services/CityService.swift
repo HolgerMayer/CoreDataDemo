@@ -1,21 +1,23 @@
 //
-//  CountryFactory.swift
+//  CityService.swift
 //  CoreDataDemo
 //
 //  Created by Holger Mayer on 09.10.22.
 //
 
-
 import Foundation
 import CoreData
 
-class CountryFactory : EntityFactory {
+class CityService : EntityService {
     
  
-    static func create(name: String, context:NSManagedObjectContext) -> Country? {
-        let item = Country(context: context)
+    static func create(name: String, countryID: UUID, capital:Bool = false, population: Int = 0, context:NSManagedObjectContext) -> City? {
+        let item = City(context: context)
         item.id = UUID()
         item.name = name
+        item.countryID = countryID
+        item.captial = capital
+        item.population = Int32(population)
 
         do {
             try context.save()
@@ -32,15 +34,15 @@ class CountryFactory : EntityFactory {
 }
 
 
-extension CountryFactory {
-    
-    // Example movie for Xcode previews
-    static var example: Country {
+
+extension CityService {
+    // Example city for Xcode previews
+    static var example: City {
         
         // Get the first movie from the in-memory Core Data store
         let context = PersistenceController.preview.container.viewContext
         
-        let fetchRequest: NSFetchRequest<Country> = Country.fetchRequest()
+        let fetchRequest: NSFetchRequest<City> = City.fetchRequest()
         fetchRequest.fetchLimit = 1
         
         let results = try? context.fetch(fetchRequest)

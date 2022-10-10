@@ -18,6 +18,6 @@ struct CountryView: View {
 
 struct CountryView_Previews: PreviewProvider {
     static var previews: some View {
-        CountryView(country: CountryFactory.example)
+        CountryView(country: CountryService.example)
     }
 }

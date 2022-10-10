@@ -38,7 +38,7 @@ struct CityListView: View {
 struct CityListView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack{
-            CityListView(country:CountryFactory.example)
+            CityListView(country:CountryService.example)
         }    .environmentObject(NavigationRouter())
             .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
