@@ -36,6 +36,7 @@ struct CountryListView_Previews: PreviewProvider {
         NavigationStack {
             CountryListView()
         }
-            .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+        .environmentObject(NavigationRouter())
+        .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }
