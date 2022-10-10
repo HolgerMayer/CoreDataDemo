@@ -9,18 +9,20 @@ import SwiftUI
 
 struct CityListView: View {
     @Environment(\.managedObjectContext) private var viewContext
-    
+    @EnvironmentObject var navigationRouter : NavigationRouter
+
     @FetchRequest var fetchRequest: FetchedResults<City>
     
     
     var body: some View {
-        List {
+        List(selection: $navigationRouter.selectedCity) {
             ForEach (fetchRequest) { city in
-                Text(city.name!)
+                NavigationLink(value: city){
+                    Text(city.name!)
+                }
             }
             
         }
-        
     }
     
     init(country : Country){
@@ -34,7 +36,9 @@ struct CityListView: View {
 
 struct CityListView_Previews: PreviewProvider {
     static var previews: some View {
-        CityListView(country:CountryFactory.example)
+        NavigationStack{
+            CityListView(country:CountryFactory.example)
+        }
             .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }

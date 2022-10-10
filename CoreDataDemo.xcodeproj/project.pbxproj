@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5454753728F41C7400BC704C /* NavigationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5454753628F41C7400BC704C /* NavigationRouter.swift */; };
 		54D680C628F27DFC00B43C86 /* CoreDataDemoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D680C528F27DFC00B43C86 /* CoreDataDemoApp.swift */; };
 		54D680C828F27DFC00B43C86 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D680C728F27DFC00B43C86 /* ContentView.swift */; };
 		54D680CA28F27DFD00B43C86 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 54D680C928F27DFD00B43C86 /* Assets.xcassets */; };
@@ -47,6 +48,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5454753628F41C7400BC704C /* NavigationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationRouter.swift; sourceTree = "<group>"; };
 		54D680C228F27DFC00B43C86 /* CoreDataDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoreDataDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		54D680C528F27DFC00B43C86 /* CoreDataDemoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataDemoApp.swift; sourceTree = "<group>"; };
 		54D680C728F27DFC00B43C86 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -191,6 +193,7 @@
 			children = (
 				54D6810628F2848400B43C86 /* Entities */,
 				54D680C728F27DFC00B43C86 /* ContentView.swift */,
+				5454753628F41C7400BC704C /* NavigationRouter.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -338,6 +341,7 @@
 			files = (
 				54D680CF28F27DFD00B43C86 /* Persistence.swift in Sources */,
 				54D6810828F2849600B43C86 /* CityView.swift in Sources */,
+				5454753728F41C7400BC704C /* NavigationRouter.swift in Sources */,
 				54D680D228F27DFD00B43C86 /* CoreDataDemo.xcdatamodeld in Sources */,
 				54D680FA28F27F5500B43C86 /* Country+CoreDataProperties.swift in Sources */,
 				54D6811028F2882F00B43C86 /* CountryListView.swift in Sources */,

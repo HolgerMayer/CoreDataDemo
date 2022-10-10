@@ -9,16 +9,20 @@ import SwiftUI
 
 struct CountryListView: View {
     @Environment(\.managedObjectContext) private var viewContext
-
+    @EnvironmentObject var navigationRouter : NavigationRouter
+ 
 
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \Country.name, ascending: true)],
         animation: .default)
     private var countries: FetchedResults<Country>
     var body: some View {
-        List {
+        List(selection:$navigationRouter.selectedCountry) {
             ForEach (countries) { country in
-                Text(country.name!)
+                NavigationLink(value: country){
+                    Text(country.name!)
+                    
+                }
             }
         }
 
@@ -29,7 +33,9 @@ struct CountryListView: View {
 
 struct CountryListView_Previews: PreviewProvider {
     static var previews: some View {
-        CountryListView()
+        NavigationStack {
+            CountryListView()
+        }
             .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }

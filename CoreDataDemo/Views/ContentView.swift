@@ -10,16 +10,33 @@ import CoreData
 
 struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
+    @EnvironmentObject var navigationRouter : NavigationRouter
     
-  
     var body: some View {
         
-        NavigationSplitView(columnVisibility: .constant(.doubleColumn)) {
+        NavigationSplitView(columnVisibility: .constant(.all)) {
             CountryListView()
+                .toolbar{
+                    ToolbarItem(placement: .bottomBar) {
+                        Button("Initialize") {
+                            PersistenceController.loadData(viewContext: viewContext)
+                        }
+                    }
+                }
                 .navigationTitle("Countries")
+        } content: {
+            if navigationRouter.selectedCountry == nil {
+                Text("Select a Country")
+            } else {
+                CityListView(country: navigationRouter.selectedCountry!)
+            }
         } detail: {
-            Text("Select a Country")
-        }
+            if navigationRouter.selectedCity == nil {
+                Text("Select a Country and a City")
+            } else {
+                CityView(city: navigationRouter.selectedCity!)
+            }
+       }
         .navigationSplitViewStyle(.balanced)
     }
 }
