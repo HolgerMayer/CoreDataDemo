@@ -12,4 +12,16 @@ class NavigationRouter : ObservableObject {
     
     @Published var selectedCountry : Country?
     @Published var selectedCity : City?
+    
+    
+    func resetCity(){
+        selectedCity = nil
+    }
+    
+    func resetAll(){
+        selectedCity = nil
+        selectedCountry = nil
+    }
+    
+    
 }

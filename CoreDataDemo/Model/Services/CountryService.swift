@@ -29,6 +29,37 @@ class CountryService : EntityService {
         return item
     }
     
+    
+    static func delete(_ object : Country, context : NSManagedObjectContext){
+        
+        
+         do {
+             
+             try CityService.deleteWhereCountryIDis(object.id!, context:context)
+             
+             context.delete(object)
+             
+       
+            try context.save()
+        } catch {
+            // Replace this implementation with code to handle the error appropriately.
+            // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+            let nsError = error as NSError
+            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+        }
+    }
+    
+    static func count(context:NSManagedObjectContext) -> Int {
+        let fetchRequest: NSFetchRequest<Country>
+        fetchRequest = Country.fetchRequest()
+        
+        do {
+            
+            return try context.count(for: fetchRequest)
+        } catch {
+            return -1
+        }
+    }
 }
 
 

@@ -31,6 +31,41 @@ class CityService : EntityService {
         return item
     }
     
+    static func deleteWhereCountryIDis(_ countryID : UUID, context: NSManagedObjectContext) throws{
+        // Create a fetch request with a predicate
+        let fetchRequest: NSFetchRequest<City>
+        fetchRequest = City.fetchRequest()
+
+        fetchRequest.predicate = NSPredicate(format: "(countryID == %@)",countryID as NSUUID)
+
+        // Setting includesPropertyValues to false means
+        // the fetch request will only get the managed
+        // object ID for each object
+        fetchRequest.includesPropertyValues = false
+
+        // Perform the fetch request
+        let objects = try context.fetch(fetchRequest)
+            
+        // Delete the objects
+        for object in objects {
+            context.delete(object)
+        }
+
+        // Save the deletions to the persistent store
+        try context.save()
+    }
+    
+    static func count(context:NSManagedObjectContext) -> Int {
+        let fetchRequest: NSFetchRequest<City>
+        fetchRequest = City.fetchRequest()
+        
+        do {
+            
+            return try context.count(for: fetchRequest)
+        } catch {
+            return -1
+        }
+    }
 }
 
 
