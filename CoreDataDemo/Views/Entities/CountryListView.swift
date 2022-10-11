@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct CountryListView: View {
     @Environment(\.managedObjectContext) private var viewContext
@@ -13,16 +14,16 @@ struct CountryListView: View {
     
     // edit sheet is used for creation
     @State private var showEditSheet = false
-    @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Country.name, ascending: true)],
-        animation: .default)
-    private var countries: FetchedResults<Country>
     
+     
+    @State private var query: String = ""
     
     var body: some View {
+        
+        
         VStack {
             List(selection:$navigationRouter.selectedCountry) {
-                ForEach (countries) { country in
+                ForEach (filteredResults) { country in
                     NavigationLink(value: country){
                         Text(country.name ?? "")
                     }
@@ -45,11 +46,12 @@ struct CountryListView: View {
                         }
                     }
                 }
-             }
+            }
             Spacer()
             StatisticsView()
-
+            
         }
+         .searchable(text: $query, prompt: "Search")
         .sheet(isPresented: $showEditSheet ) {
             NavigationStack {
                 CountryView()
@@ -66,9 +68,43 @@ struct CountryListView: View {
             }
         }
         
-
+        
     }
     
+    
+    init(){
+    }
+    
+    var filteredResults : [Country] {
+        let fetchRequest: NSFetchRequest<Country> = Country.fetchRequest()
+
+            do {
+                let result =  try viewContext.fetch(fetchRequest)
+                if query.isEmpty {
+                    return result
+                } else {
+                    return result.filter({$0.name!.lowercased().contains(query.lowercased())})
+                }
+            } catch {
+                print("Failed to fetch countries: \(error)")
+                return []
+            }
+    }
+    
+    /*
+    private func queryData(_ queryString: String) {
+        if queryString.isEmpty {
+            _fetchRequest = FetchRequest(
+                sortDescriptors: [NSSortDescriptor(keyPath: \Country.name, ascending: true)],
+                animation: .default)
+        } else {
+            _fetchRequest = FetchRequest(
+                sortDescriptors: [NSSortDescriptor(keyPath: \Country.name, ascending: true)],
+                predicate:NSPredicate(format: "(name like %@)",queryString)
+                animation: .default)
+        }
+    }
+    */
     private func addCountry() {
         showEditSheet = true
     }
@@ -78,6 +114,7 @@ struct CountryListView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
             CountryListView()
+                .navigationBarTitle("Countries")
         }
         .environmentObject(NavigationRouter())
         .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
