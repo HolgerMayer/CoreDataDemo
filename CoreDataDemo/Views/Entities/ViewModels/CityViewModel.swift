@@ -52,7 +52,7 @@ class CityViewModel : ObservableObject {
                 dataItem!.name = self.name
                 dataItem!.population = Int32(self.population)
                 dataItem!.captial = self.isCapitol
-                CountryService.update(dataItem!, context: context)
+                CityService.update(dataItem!, context: context)
             }
         }
     }

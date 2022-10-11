@@ -17,8 +17,10 @@ struct CityView: View {
     var body: some View {
         Form {
             TextField("City name", text:$formVM.name)
-            Text("Population: \(formVM.population)")
-        }.toolbar{
+            TextField("Population", value: $formVM.population, format: .number)
+            Toggle("Capitol", isOn: $formVM.isCapitol)
+
+         }.toolbar{
             updateSaveButton
         }
     }
