@@ -10,7 +10,11 @@ import SwiftUI
 struct CityListView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @EnvironmentObject var navigationRouter : NavigationRouter
-
+    private var country : Country
+    
+    // edit sheet is used for creation
+    @State private var showEditSheet = false
+    
     @FetchRequest var fetchRequest: FetchedResults<City>
     
     
@@ -23,14 +27,35 @@ struct CityListView: View {
             }
             
         }
+        .sheet(isPresented: $showEditSheet ) {
+            NavigationStack {
+                CityView(country:country)
+                    .navigationBarTitle("Add city")
+            }
+        }
+        .toolbar{
+            ToolbarItem {
+                Button(action: addCity) {
+                    Label(title: {Text("Add city")}, icon: {
+                        AppSymbol.add
+                    })
+                }
+            }
+
+        }
         .navigationTitle("Cities")
     }
     
     init(country : Country){
+        self.country = country
         _fetchRequest = FetchRequest(
             sortDescriptors: [NSSortDescriptor(keyPath: \City.name, ascending: true)],predicate:  NSPredicate(format: "(countryID == %@)",country.id! as NSUUID),
             animation: .default)
 
+    }
+    
+    private func addCity() {
+        showEditSheet = true
     }
     
 }

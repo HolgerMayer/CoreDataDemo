@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5439DAC028F620250000C633 /* CityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5439DABF28F620250000C633 /* CityViewModel.swift */; };
 		544E513C28F57B5700D608BB /* CountryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 544E513B28F57B5700D608BB /* CountryViewModel.swift */; };
 		544E513E28F57F7700D608BB /* AppSymbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 544E513D28F57F7700D608BB /* AppSymbol.swift */; };
 		544E514028F5891200D608BB /* StatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 544E513F28F5891200D608BB /* StatisticsView.swift */; };
@@ -53,6 +54,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5439DABF28F620250000C633 /* CityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityViewModel.swift; sourceTree = "<group>"; };
 		544E513928F578F500D608BB /* TODO.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = TODO.md; sourceTree = "<group>"; };
 		544E513B28F57B5700D608BB /* CountryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryViewModel.swift; sourceTree = "<group>"; };
 		544E513D28F57F7700D608BB /* AppSymbol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSymbol.swift; sourceTree = "<group>"; };
@@ -114,6 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				544E513B28F57B5700D608BB /* CountryViewModel.swift */,
+				5439DABF28F620250000C633 /* CityViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -391,6 +394,7 @@
 				544E513C28F57B5700D608BB /* CountryViewModel.swift in Sources */,
 				54D6811228F2D28100B43C86 /* CityListView.swift in Sources */,
 				54D680C828F27DFC00B43C86 /* ContentView.swift in Sources */,
+				5439DAC028F620250000C633 /* CityViewModel.swift in Sources */,
 				54D680FC28F27F5500B43C86 /* City+CoreDataProperties.swift in Sources */,
 				54D6810128F280FA00B43C86 /* EntityService.swift in Sources */,
 				54D680F928F27F5500B43C86 /* Country+CoreDataClass.swift in Sources */,

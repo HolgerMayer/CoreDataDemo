@@ -8,14 +8,35 @@
 import SwiftUI
 
 struct CityView: View {
+    @Environment(\.presentationMode) var presentationMode
+   @Environment(\.managedObjectContext) private var viewContext
     
-    var city : City
+    @ObservedObject var formVM : CityViewModel
+
     
     var body: some View {
-        VStack {
-            Text(city.name!)
-            Text("Population: \(city.population)")
+        Form {
+            TextField("City name", text:$formVM.name)
+            Text("Population: \(formVM.population)")
+        }.toolbar{
+            updateSaveButton
         }
+    }
+    
+    var updateSaveButton: some View {
+        Button( formVM.isUpdating ? "Update" : "Save", action: {
+            formVM.update(context: viewContext)
+             presentationMode.wrappedValue.dismiss()
+        })
+        .disabled(!formVM.isValid)
+    }
+    
+    init(city:City){
+        formVM = CityViewModel(city: city)
+    }
+    
+    init(country: Country){
+        formVM = CityViewModel(country:country)
     }
 }
 
