@@ -10,6 +10,8 @@ import SwiftUI
 struct StatisticsView: View {
     @Environment(\.managedObjectContext) private var viewContext
 
+    var update:Bool
+    
     var body: some View {
         VStack{
             Text("Countries : \(CountryService.count(context: viewContext))").bold()
@@ -26,7 +28,7 @@ struct StatisticsView: View {
 
 struct StatisticsView_Previews: PreviewProvider {
     static var previews: some View {
-        StatisticsView()
+        StatisticsView(update:true)
             .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
         
     }

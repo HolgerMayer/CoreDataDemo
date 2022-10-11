@@ -17,6 +17,7 @@ struct CountryListView: View {
     
      
     @State private var query: String = ""
+    @State private var needsUpdate = false
     
     var body: some View {
         
@@ -36,6 +37,7 @@ struct CountryListView: View {
                             navigationRouter.resetAll()
                             withAnimation{
                                 CountryService.delete(country,context:viewContext)
+                                needsUpdate.toggle()
                             }
                         } label: {
                             Label(title: {
@@ -48,7 +50,7 @@ struct CountryListView: View {
                 }
             }
             Spacer()
-            StatisticsView()
+            StatisticsView(update:needsUpdate)
             
         }
          .searchable(text: $query, prompt: "Search")
@@ -64,6 +66,12 @@ struct CountryListView: View {
                     Label(title: {Text("Add country")}, icon: {
                         AppSymbol.add
                     })
+                }
+            }
+             ToolbarItem(placement: .bottomBar) {
+                Button("Initialize") {
+                    PersistenceController.loadData(viewContext: viewContext)
+                    needsUpdate.toggle()
                 }
             }
         }
@@ -91,20 +99,7 @@ struct CountryListView: View {
             }
     }
     
-    /*
-    private func queryData(_ queryString: String) {
-        if queryString.isEmpty {
-            _fetchRequest = FetchRequest(
-                sortDescriptors: [NSSortDescriptor(keyPath: \Country.name, ascending: true)],
-                animation: .default)
-        } else {
-            _fetchRequest = FetchRequest(
-                sortDescriptors: [NSSortDescriptor(keyPath: \Country.name, ascending: true)],
-                predicate:NSPredicate(format: "(name like %@)",queryString)
-                animation: .default)
-        }
-    }
-    */
+
     private func addCountry() {
         showEditSheet = true
     }

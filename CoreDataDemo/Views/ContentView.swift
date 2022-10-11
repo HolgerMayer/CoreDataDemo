@@ -16,13 +16,6 @@ struct ContentView: View {
         
         NavigationSplitView(columnVisibility: .constant(.all)) {
             CountryListView()
-                .toolbar{
-                    ToolbarItem(placement: .bottomBar) {
-                        Button("Initialize") {
-                            PersistenceController.loadData(viewContext: viewContext)
-                        }
-                    }
-                }
                 .navigationTitle("Countries")
         } content: {
             if navigationRouter.selectedCountry == nil {
