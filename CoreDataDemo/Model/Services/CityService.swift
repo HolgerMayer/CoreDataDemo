@@ -16,7 +16,7 @@ class CityService : EntityService {
         item.id = UUID()
         item.name = name
         item.countryID = countryID
-        item.captial = capital
+        item.capital = capital
         item.population = Int32(population)
 
         do {

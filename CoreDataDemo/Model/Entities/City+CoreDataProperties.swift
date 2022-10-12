@@ -18,7 +18,7 @@ extension City {
 
     @NSManaged public var id: UUID?
     @NSManaged public var name: String?
-    @NSManaged public var captial: Bool
+    @NSManaged public var capital: Bool
     @NSManaged public var population: Int32
     @NSManaged public var countryID: UUID?
 
