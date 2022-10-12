@@ -27,8 +27,11 @@ struct CityView: View {
     
     var updateSaveButton: some View {
         Button( formVM.isUpdating ? "Update" : "Save", action: {
+            let shallDismiss = !formVM.isUpdating
             formVM.update(context: viewContext)
-             presentationMode.wrappedValue.dismiss()
+            if shallDismiss {
+                presentationMode.wrappedValue.dismiss()
+            }
         })
         .disabled(!formVM.isValid)
     }
