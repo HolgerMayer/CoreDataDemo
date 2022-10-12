@@ -1,7 +1,7 @@
 #  Offene Punkte
 
 
-- Focus 
+
 - Map displays city 
 - Edit Country 
 
@@ -21,3 +21,5 @@
  -Update Fehler beim Erzeugen einer neuen Stadt in der Städteliste
  - Required Fields
 - StatisticsView Update überarbeiten 
+- Focus  in CityView eingebaut
+

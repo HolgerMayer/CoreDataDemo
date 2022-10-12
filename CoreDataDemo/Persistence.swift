@@ -79,6 +79,6 @@ struct PersistenceController {
         let usa = CountryService.create(name: "United States", flag:"🇺🇸", context: viewContext)
         let _ = CityService.create(name: "Seattle", countryID: usa!.id! , population: 4102100,context: viewContext)
         let _ = CityService.create(name: "Denver", countryID: usa!.id! , capital:true,population: 2897000,context: viewContext)
-        let _ = CityService.create(name: "Washington D.C.", countryID: usa!.id! , population: 5434000,context: viewContext)
+        let _ = CityService.create(name: "Washington D.C.", countryID: usa!.id! , population: 5434000,latitude: 38.900497, longitude:-77.007507,context: viewContext)
     }
 }

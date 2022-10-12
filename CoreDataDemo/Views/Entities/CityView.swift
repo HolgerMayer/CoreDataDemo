@@ -6,12 +6,13 @@
 //
 
 import SwiftUI
+import MapKit
 
 struct CityView: View {
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.managedObjectContext) private var viewContext
     
-     @ObservedObject var formVM : CityViewModel
+      @ObservedObject var formVM : CityViewModel
      @FocusState private var focus: AnyKeyPath?
     
     var body: some View {
@@ -26,6 +27,10 @@ struct CityView: View {
                 Text("Name is required")
                     .font(.caption)
                     .foregroundColor(formVM.name.isBlank ? .red : .clear)
+            }
+            Section {
+                Map(coordinateRegion: $formVM.region)
+                    .frame(height: 300)
             }
             
         }

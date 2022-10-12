@@ -21,6 +21,10 @@ extension City {
     @NSManaged public var capital: Bool
     @NSManaged public var population: Int32
     @NSManaged public var countryID: UUID?
+    @NSManaged public var latitude: Double
+    @NSManaged public var longitude: Double
+    @NSManaged public var latitudeDelta: Double
+    @NSManaged public var longitudeDelta: Double
 
 }
 

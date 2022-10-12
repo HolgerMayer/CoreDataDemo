@@ -11,14 +11,20 @@ import CoreData
 class CityService : EntityService {
     
  
-    static func create(name: String, countryID: UUID, capital:Bool = false, population: Int = 0, context:NSManagedObjectContext) -> City? {
+    static func create(name: String, countryID: UUID, capital:Bool = false, population: Int = 0,
+latitude: Double = 0.0, longitude: Double = 0.0,
+                       latitudeDelta : Double = 0.5, longitudeDelta :Double = 0.5,
+                       context:NSManagedObjectContext) -> City? {
         let item = City(context: context)
         item.id = UUID()
         item.name = name
         item.countryID = countryID
         item.capital = capital
         item.population = Int32(population)
-
+        item.latitude = latitude
+        item.longitude = longitude
+        item.latitudeDelta = latitudeDelta
+        item.longitudeDelta = longitudeDelta
         do {
             try context.save()
         } catch {

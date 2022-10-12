@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+import MapKit
 
 
 class CityViewModel : ObservableObject {
@@ -15,6 +16,7 @@ class CityViewModel : ObservableObject {
     @Published var name : String
     @Published var population : Int
     @Published var isCapital : Bool
+    @Published var region : MKCoordinateRegion
   
     var countryID: UUID
     var dataItem : City?
@@ -25,6 +27,8 @@ class CityViewModel : ObservableObject {
         self.isCapital = false
         self.countryID = country.id!
         self.dataItem = nil
+        self.region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 51.507222, longitude: -0.1275), span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
+        
     }
     
     
@@ -34,6 +38,8 @@ class CityViewModel : ObservableObject {
         self.isCapital = city.capital
         self.countryID = city.countryID!
         self.dataItem = city
+        self.region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: city.latitude, longitude:city.longitude), span: MKCoordinateSpan(latitudeDelta:city.latitudeDelta, longitudeDelta:city.longitudeDelta))
+        
     }
     
     var isValid : Bool {
@@ -47,11 +53,18 @@ class CityViewModel : ObservableObject {
     func update(context: NSManagedObjectContext){
         if isValid {
             if dataItem == nil {
-                dataItem = CityService.create(name:self.name,countryID: self.countryID,capital:self.isCapital,population:self.population,context:context)
+                dataItem = CityService.create(name:self.name,countryID: self.countryID,capital:self.isCapital,population:self.population,
+                                              latitude:region.center.latitude,longitude:region.center.longitude,
+                                              latitudeDelta: region.span.latitudeDelta, longitudeDelta:region.span.longitudeDelta,
+                                              context:context)
             } else {
                 dataItem!.name = self.name
                 dataItem!.population = Int32(self.population)
                 dataItem!.capital = self.isCapital
+                dataItem!.latitude = self.region.center.latitude
+                dataItem!.longitude = self.region.center.longitude
+                dataItem!.latitudeDelta = self.region.span.latitudeDelta
+                dataItem!.longitudeDelta = self.region.span.longitudeDelta
                 CityService.update(dataItem!, context: context)
             }
         }
