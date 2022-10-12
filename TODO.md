@@ -1,10 +1,9 @@
 #  Offene Punkte
 
-- Required Fields
+
 - Focus 
 - Map displays city 
 - Edit Country 
-- StatisticsView Update überarbeiten (needsUpdate in Router?)
 
 
 # Erledigte Punkte
@@ -20,3 +19,5 @@
 - Search City in List
 - Update Fehler beim erzeugen eines neuen Landes in der Länderliste -> Findet nur nach Click statt
  -Update Fehler beim Erzeugen einer neuen Stadt in der Städteliste
+ - Required Fields
+- StatisticsView Update überarbeiten 

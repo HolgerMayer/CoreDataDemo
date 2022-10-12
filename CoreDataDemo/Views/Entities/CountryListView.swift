@@ -40,7 +40,7 @@ struct CountryListView: View {
             }
 
             Spacer()
-            StatisticsView(update:needsUpdate)
+            StatisticsView()
             
         }
          .searchable(text: $filterString, prompt: "Search")

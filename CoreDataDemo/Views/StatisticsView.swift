@@ -8,14 +8,23 @@
 import SwiftUI
 
 struct StatisticsView: View {
-    @Environment(\.managedObjectContext) private var viewContext
 
-    var update:Bool
+    @FetchRequest(
+        sortDescriptors: [NSSortDescriptor(keyPath: \Country.name, ascending: true)],
+        animation: .default)
+    private var countries: FetchedResults<Country>
+
+    @FetchRequest(
+        sortDescriptors: [NSSortDescriptor(keyPath: \City.name, ascending: true)],
+        animation: .default)
+    private var cities: FetchedResults<City>
+
+    
     
     var body: some View {
         VStack{
-            Text("Countries : \(CountryService.count(context: viewContext))").bold()
-            Text("Cities : \(CityService.count(context: viewContext))").bold()
+            Text("Countries : \(countries.count)").bold()
+            Text("Cities : \(cities.count)").bold()
             
         }
         .padding()
@@ -28,7 +37,7 @@ struct StatisticsView: View {
 
 struct StatisticsView_Previews: PreviewProvider {
     static var previews: some View {
-        StatisticsView(update:true)
+        StatisticsView()
             .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
         
     }
