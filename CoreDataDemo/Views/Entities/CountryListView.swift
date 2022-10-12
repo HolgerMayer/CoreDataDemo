@@ -26,7 +26,11 @@ struct CountryListView: View {
             List(selection:$navigationRouter.selectedCountry) {
                 ForEach (filteredResults) { country in
                     NavigationLink(value: country){
-                        Text(country.name ?? "")
+                        HStack{
+                            Text(country.flag ?? "?")
+                            Text(country.name ?? "")
+                            Spacer()
+                        }
                     }
                     // we implement delete as a swipe action because
                     // it is modern style

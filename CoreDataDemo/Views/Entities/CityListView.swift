@@ -59,7 +59,7 @@ struct CityListView: View {
             }
 
         }
-        .navigationTitle("Cities")
+        .navigationTitle("\(country.flag ?? "?") Cities")
     }
     
     init(country : Country){

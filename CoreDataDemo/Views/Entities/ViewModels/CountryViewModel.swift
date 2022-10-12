@@ -12,17 +12,20 @@ import CoreData
 class CountryViewModel : ObservableObject {
     
     @Published var name : String
-    
+    @Published var flag : String
+
     var dataItem : Country?
     
     init() {
         self.name = ""
+        self.flag = ""
         self.dataItem = nil
     }
     
     
     init(country: Country){
         self.name = country.name ?? ""
+        self.flag = country.flag ?? ""
         self.dataItem = country
     }
     
@@ -37,7 +40,7 @@ class CountryViewModel : ObservableObject {
     func update(context: NSManagedObjectContext){
         if isValid {
             if dataItem == nil {
-                dataItem = CountryService.create(name: self.name, context: context)
+                dataItem = CountryService.create(name: self.name, flag:self.flag, context: context)
             } else {
                 dataItem!.name = self.name
                 CountryService.update(dataItem!, context: context)

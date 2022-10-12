@@ -70,13 +70,13 @@ struct PersistenceController {
     
     
     static func loadData(viewContext : NSManagedObjectContext){
-        let canada = CountryService.create(name: "Canada", context: viewContext)
+        let canada = CountryService.create(name: "Canada", flag:"🇨🇦",context: viewContext)
         
         let _ = CityService.create(name: "Vancover", countryID: canada!.id! , population: 2632000,context: viewContext)
         let _ = CityService.create(name: "Victoria", countryID: canada!.id! ,capital:true, population: 394000,context: viewContext)
         let _ = CityService.create(name: "Toronto", countryID: canada!.id! , population: 6313000,context: viewContext)
         
-        let usa = CountryService.create(name: "United States", context: viewContext)
+        let usa = CountryService.create(name: "United States", flag:"🇺🇸", context: viewContext)
         let _ = CityService.create(name: "Seattle", countryID: usa!.id! , population: 4102100,context: viewContext)
         let _ = CityService.create(name: "Denver", countryID: usa!.id! , capital:true,population: 2897000,context: viewContext)
         let _ = CityService.create(name: "Washington D.C.", countryID: usa!.id! , population: 5434000,context: viewContext)

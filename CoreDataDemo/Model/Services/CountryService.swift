@@ -12,10 +12,11 @@ import CoreData
 class CountryService : EntityService {
     
  
-    static func create(name: String, context:NSManagedObjectContext) -> Country? {
+    static func create(name: String, flag : String="?", context:NSManagedObjectContext) -> Country? {
         let item = Country(context: context)
         item.id = UUID()
         item.name = name
+        item.flag = flag
 
         do {
             try context.save()

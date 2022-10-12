@@ -18,6 +18,8 @@ struct CountryView: View {
         Form {
             TextField("Country name",
                       text: $formVM.name)
+            TextField("Flag",
+                      text: $formVM.flag)
         }.toolbar{
             updateSaveButton
         }
