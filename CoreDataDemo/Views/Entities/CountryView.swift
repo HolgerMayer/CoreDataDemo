@@ -16,10 +16,17 @@ struct CountryView: View {
 
     var body: some View {
         Form {
-            TextField("Country name",
-                      text: $formVM.name)
-            TextField("Flag",
-                      text: $formVM.flag)
+            Section {
+                TextField("Country name",
+                          text: $formVM.name)
+                TextField("Flag",
+                          text: $formVM.flag)
+            }  footer: {
+                    Text("Name is required")
+                        .font(.caption)
+                        .foregroundColor(formVM.name.isBlank ? .red : .clear)
+            }
+ 
         }.toolbar{
             updateSaveButton
         }

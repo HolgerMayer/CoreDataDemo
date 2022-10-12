@@ -16,10 +16,16 @@ struct CityView: View {
     
     var body: some View {
         Form {
-            TextField("City name", text:$formVM.name)
+            Section {
+             TextField("City name", text:$formVM.name)
             TextField("Population", value: $formVM.population, format: .number)
             Toggle("Capital", isOn: $formVM.isCapital)
-
+            }  footer: {
+                    Text("Name is required")
+                        .font(.caption)
+                        .foregroundColor(formVM.name.isBlank ? .red : .clear)
+            }
+ 
          }.toolbar{
             updateSaveButton
         }

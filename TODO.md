@@ -1,5 +1,7 @@
 #  Offene Punkte
 
+- Required Fields
+- Focus 
 - Map displays city 
 - Edit Country 
 - StatisticsView Update überarbeiten (needsUpdate in Router?)
