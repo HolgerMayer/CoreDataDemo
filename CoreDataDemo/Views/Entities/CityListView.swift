@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct CityListView: View {
     @Environment(\.managedObjectContext) private var viewContext
@@ -14,14 +15,13 @@ struct CityListView: View {
     
     // edit sheet is used for creation
     @State private var showEditSheet = false
-    
+    @State private var query: String = ""
     @State private var needsUpdate = false
-    @FetchRequest var fetchRequest: FetchedResults<City>
     
     
     var body: some View {
         List(selection: $navigationRouter.selectedCity) {
-            ForEach (fetchRequest) { city in
+            ForEach (filteredResults) { city in
                 NavigationLink(value: city){
                     Text(city.name ?? "")
                 }
@@ -43,6 +43,7 @@ struct CityListView: View {
             }
             
         }
+        .searchable(text: $query, prompt: "Search")
         .sheet(isPresented: $showEditSheet ) {
             NavigationStack {
                 CityView(country:country)
@@ -64,10 +65,24 @@ struct CityListView: View {
     
     init(country : Country){
         self.country = country
-        _fetchRequest = FetchRequest(
-            sortDescriptors: [NSSortDescriptor(keyPath: \City.name, ascending: true)],predicate:  NSPredicate(format: "(countryID == %@)",country.id! as NSUUID),
-            animation: .default)
-
+    }
+    
+    var filteredResults : [City] {
+        let fetchRequest: NSFetchRequest<City> = City.fetchRequest()
+        fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \City.name, ascending: true)]
+        fetchRequest.predicate = NSPredicate(format: "(countryID == %@)",country.id! as NSUUID)
+        
+            do {
+                let result =  try viewContext.fetch(fetchRequest)
+                if query.isEmpty {
+                    return result
+                } else {
+                    return result.filter({$0.name!.lowercased().contains(query.lowercased())})
+                }
+            } catch {
+                print("Failed to fetch countries: \(error)")
+                return []
+            }
     }
     
     private func addCity() {

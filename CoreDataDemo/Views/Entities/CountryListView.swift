@@ -89,7 +89,8 @@ struct CountryListView: View {
     
     var filteredResults : [Country] {
         let fetchRequest: NSFetchRequest<Country> = Country.fetchRequest()
-
+        fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \Country.name, ascending: true)]
+        
             do {
                 let result =  try viewContext.fetch(fetchRequest)
                 if query.isEmpty {
