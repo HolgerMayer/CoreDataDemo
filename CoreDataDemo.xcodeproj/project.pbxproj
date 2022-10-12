@@ -34,6 +34,7 @@
 		54D6810E28F287BF00B43C86 /* CountryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D6810D28F287BF00B43C86 /* CountryView.swift */; };
 		54D6811028F2882F00B43C86 /* CountryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D6810F28F2882F00B43C86 /* CountryListView.swift */; };
 		54D6811228F2D28100B43C86 /* CityListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D6811128F2D28100B43C86 /* CityListView.swift */; };
+		54DDA03528F6DFF3009FD0D9 /* FilteredList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DDA03428F6DFF3009FD0D9 /* FilteredList.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +86,7 @@
 		54D6810D28F287BF00B43C86 /* CountryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryView.swift; sourceTree = "<group>"; };
 		54D6810F28F2882F00B43C86 /* CountryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryListView.swift; sourceTree = "<group>"; };
 		54D6811128F2D28100B43C86 /* CityListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityListView.swift; sourceTree = "<group>"; };
+		54DDA03428F6DFF3009FD0D9 /* FilteredList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilteredList.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -232,6 +234,7 @@
 		54D6810528F2847A00B43C86 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				54DDA03328F6DFE3009FD0D9 /* Tools */,
 				544E513D28F57F7700D608BB /* AppSymbol.swift */,
 				54D6810628F2848400B43C86 /* Entities */,
 				54D680C728F27DFC00B43C86 /* ContentView.swift */,
@@ -251,6 +254,14 @@
 				54D6811128F2D28100B43C86 /* CityListView.swift */,
 			);
 			path = Entities;
+			sourceTree = "<group>";
+		};
+		54DDA03328F6DFE3009FD0D9 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				54DDA03428F6DFF3009FD0D9 /* FilteredList.swift */,
+			);
+			path = Tools;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -403,6 +414,7 @@
 				544E514028F5891200D608BB /* StatisticsView.swift in Sources */,
 				54D680FF28F280ED00B43C86 /* CountryService.swift in Sources */,
 				54D6810328F282AF00B43C86 /* CityService.swift in Sources */,
+				54DDA03528F6DFF3009FD0D9 /* FilteredList.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

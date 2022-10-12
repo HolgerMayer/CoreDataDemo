@@ -16,48 +16,34 @@ struct CountryListView: View {
     @State private var showEditSheet = false
     
      
-    @State private var query: String = ""
+    @State private var filterString: String = ""
     @State private var needsUpdate = false
     
     var body: some View {
         
         
         VStack {
-            List(selection:$navigationRouter.selectedCountry) {
-                ForEach (filteredResults) { country in
-                    NavigationLink(value: country){
-                        HStack{
-                            Text(country.flag ?? "?")
-                            Text(country.name ?? "")
-                            Spacer()
-                        }
+            
+            FilteredList(context: viewContext,predicate:queryPredicate(),sortDescriptors:sortDescriptors(), selection:$navigationRouter.selectedCountry, deleteHandler: {country in
+                navigationRouter.resetAll()
+                    withAnimation{
+                        CountryService.delete(country,context:viewContext)
+                        needsUpdate.toggle()
                     }
-                    // we implement delete as a swipe action because
-                    // it is modern style
-                    // it is posible to use wthout a ForEach loop
-                    // the ForEach loop has no selection variable
-                    .swipeActions{
-                        Button(role:.destructive){
-                            navigationRouter.resetAll()
-                            withAnimation{
-                                CountryService.delete(country,context:viewContext)
-                                needsUpdate.toggle()
-                            }
-                        } label: {
-                            Label(title: {
-                                Text("Delete")
-                            }, icon: {
-                                AppSymbol.delete
-                            })
-                        }
+                }) { (country: Country) in
+
+                    HStack{
+                        Text(country.flag ?? "?")
+                        Text(country.name ?? "")
+                        Spacer()
                     }
-                }
             }
+
             Spacer()
             StatisticsView(update:needsUpdate)
             
         }
-         .searchable(text: $query, prompt: "Search")
+         .searchable(text: $filterString, prompt: "Search")
         .sheet(isPresented: $showEditSheet ) {
             NavigationStack {
                 CountryView()
@@ -87,24 +73,20 @@ struct CountryListView: View {
     init(){
     }
     
-    var filteredResults : [Country] {
-        let fetchRequest: NSFetchRequest<Country> = Country.fetchRequest()
-        fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \Country.name, ascending: true)]
+      
+
+    private func queryPredicate() -> NSPredicate {
+        if filterString.isEmpty {
+            return  NSPredicate(format: "1=1")
+        }
         
-            do {
-                let result =  try viewContext.fetch(fetchRequest)
-                if query.isEmpty {
-                    return result
-                } else {
-                    return result.filter({$0.name!.lowercased().contains(query.lowercased())})
-                }
-            } catch {
-                print("Failed to fetch countries: \(error)")
-                return []
-            }
+        return NSPredicate(format: "(name CONTAINS [c] %@)",  filterString)
     }
     
-
+    private func sortDescriptors() -> [NSSortDescriptor] {
+        return [NSSortDescriptor(key:"name",ascending:true)]
+    }
+    
     private func addCountry() {
         showEditSheet = true
     }

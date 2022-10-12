@@ -15,35 +15,24 @@ struct CityListView: View {
     
     // edit sheet is used for creation
     @State private var showEditSheet = false
-    @State private var query: String = ""
+    @State private var filterString: String = ""
     @State private var needsUpdate = false
     
     
     var body: some View {
-        List(selection: $navigationRouter.selectedCity) {
-            ForEach (filteredResults) { city in
+        FilteredList(context: viewContext,predicate:queryPredicate(),sortDescriptors:sortDescriptors(), selection:$navigationRouter.selectedCity, deleteHandler: {city in
+            navigationRouter.resetAll()
+                withAnimation{
+                    CityService.delete(city,context:viewContext)
+                    needsUpdate.toggle()
+                }
+            }) { (city: City) in
+
                 NavigationLink(value: city){
                     Text(city.name ?? "")
                 }
-                .swipeActions{
-                    Button(role:.destructive){
-                        navigationRouter.resetCity()
-                        withAnimation{
-                            CityService.delete(city,context:viewContext)
-                            needsUpdate.toggle()
-                        }
-                    } label: {
-                        Label(title: {
-                            Text("Delete")
-                        }, icon: {
-                            AppSymbol.delete
-                        })
-                    }
-                }
-            }
-            
         }
-        .searchable(text: $query, prompt: "Search")
+        .searchable(text: $filterString, prompt: "Search")
         .sheet(isPresented: $showEditSheet ) {
             NavigationStack {
                 CityView(country:country)
@@ -67,22 +56,18 @@ struct CityListView: View {
         self.country = country
     }
     
-    var filteredResults : [City] {
-        let fetchRequest: NSFetchRequest<City> = City.fetchRequest()
-        fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \City.name, ascending: true)]
-        fetchRequest.predicate = NSPredicate(format: "(countryID == %@)",country.id! as NSUUID)
+  
+    
+    private func queryPredicate() -> NSPredicate {
+        if filterString.isEmpty {
+            return  NSPredicate(format: "(countryID == %@)",country.id! as NSUUID)
+        }
         
-            do {
-                let result =  try viewContext.fetch(fetchRequest)
-                if query.isEmpty {
-                    return result
-                } else {
-                    return result.filter({$0.name!.lowercased().contains(query.lowercased())})
-                }
-            } catch {
-                print("Failed to fetch countries: \(error)")
-                return []
-            }
+        return NSPredicate(format: "(countryID == %@) AND (name CONTAINS [c] %@)",country.id! as NSUUID,  filterString)
+    }
+    
+    private func sortDescriptors() -> [NSSortDescriptor] {
+        return [NSSortDescriptor(key:"name",ascending:true)]
     }
     
     private func addCity() {
