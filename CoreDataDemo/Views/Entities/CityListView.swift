@@ -15,6 +15,7 @@ struct CityListView: View {
     // edit sheet is used for creation
     @State private var showEditSheet = false
     
+    @State private var needsUpdate = false
     @FetchRequest var fetchRequest: FetchedResults<City>
     
     
@@ -22,7 +23,22 @@ struct CityListView: View {
         List(selection: $navigationRouter.selectedCity) {
             ForEach (fetchRequest) { city in
                 NavigationLink(value: city){
-                    Text(city.name!)
+                    Text(city.name ?? "")
+                }
+                .swipeActions{
+                    Button(role:.destructive){
+                        navigationRouter.resetCity()
+                        withAnimation{
+                            CityService.delete(city,context:viewContext)
+                            needsUpdate.toggle()
+                        }
+                    } label: {
+                        Label(title: {
+                            Text("Delete")
+                        }, icon: {
+                            AppSymbol.delete
+                        })
+                    }
                 }
             }
             
