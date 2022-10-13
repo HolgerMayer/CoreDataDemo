@@ -40,8 +40,12 @@ struct CountryView: View {
         .disabled(!formVM.isValid)
     }
     
-    init(country: Country){
-        formVM = CountryViewModel(country: country)
+    init(country: Country?){
+        if country == nil {
+            formVM = CountryViewModel()
+        } else {
+            formVM = CountryViewModel(country: country!)
+        }
     }
     
     init(){

@@ -11,6 +11,7 @@ enum AppSymbol : String , Codable , View {
     
     case add
     case delete
+    case edit
 
     
     var body: some View {
@@ -19,8 +20,11 @@ enum AppSymbol : String , Codable , View {
         case .add:
             return Image(systemName: "plus.circle.fill")
         case .delete:
-            return Image(systemName: "trash")        }
-        
+            return Image(systemName: "trash")
+        case .edit:
+            return Image(systemName:  "info.circle")
+        }
+
     }
     
    

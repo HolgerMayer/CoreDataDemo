@@ -18,6 +18,7 @@ struct CountryListView: View {
      
     @State private var filterString: String = ""
     @State private var needsUpdate = false
+    @State private var editableCountry : Country?
     
     var body: some View {
         
@@ -36,6 +37,10 @@ struct CountryListView: View {
                         Text(country.flag ?? "?")
                         Text(country.name ?? "")
                         Spacer()
+                        AppSymbol.edit.onTapGesture(perform: {
+                            editableCountry = country
+                            showEditSheet = true
+                        })
                     }
             }
 
@@ -46,8 +51,8 @@ struct CountryListView: View {
          .searchable(text: $filterString, prompt: "Search")
         .sheet(isPresented: $showEditSheet ) {
             NavigationStack {
-                CountryView()
-                    .navigationBarTitle("Add country")
+                    CountryView(country: editableCountry)
+                    .navigationBarTitle(editableCountry != nil ? "Edit country" : "Add country")
             }
         }
         .toolbar{
@@ -88,6 +93,7 @@ struct CountryListView: View {
     }
     
     private func addCountry() {
+        editableCountry = nil
         showEditSheet = true
     }
 }
