@@ -15,11 +15,10 @@ struct CityView: View {
     
     @ObservedObject var formVM : CityViewModel
     @FocusState private var focus: AnyKeyPath?
-    @State private var isEditing = false
     
     var body: some View {
         Form {
-            if (isEditing) {
+            if (formVM.isEditing) {
                 editableSection
             } else {
                 readonlySection
@@ -87,18 +86,18 @@ struct CityView: View {
     
     var updateSaveButton: some View {
         HStack {
-            if isEditing {
+            if formVM.isEditing {
                 Button( formVM.isUpdating ? "Update" : "Save", action: {
                     let shallDismiss = !formVM.isUpdating
                     formVM.update(context: viewContext)
-                    self.isEditing.toggle()
+                    formVM.isEditing.toggle()
                     if shallDismiss {
                         presentationMode.wrappedValue.dismiss()
                     }
                 })
                 .disabled(!formVM.isValid)
             } else {
-                Button("Edit", action: { self.isEditing.toggle()})
+                Button("Edit", action: { formVM.isEditing.toggle()})
             }
         }
     }
@@ -133,7 +132,7 @@ struct CityView: View {
     
     init(country: Country){
         formVM = CityViewModel(country:country)
-    }
+     }
 }
 
 

@@ -17,6 +17,7 @@ class CityViewModel : ObservableObject {
     @Published var population : Int
     @Published var isCapital : Bool
     @Published var region : MKCoordinateRegion
+    @Published var isEditing : Bool
   
     var countryID: UUID
     var dataItem : City?
@@ -28,6 +29,7 @@ class CityViewModel : ObservableObject {
         self.countryID = country.id!
         self.dataItem = nil
         self.region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 51.507222, longitude: -0.1275), span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
+        self.isEditing = true
         
     }
     
@@ -39,6 +41,7 @@ class CityViewModel : ObservableObject {
         self.countryID = city.countryID!
         self.dataItem = city
         self.region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: city.latitude, longitude:city.longitude), span: MKCoordinateSpan(latitudeDelta:city.latitudeDelta, longitudeDelta:city.longitudeDelta))
+        self.isEditing = false
         
     }
     
