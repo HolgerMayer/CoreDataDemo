@@ -29,8 +29,20 @@ struct CityView: View {
                     .foregroundColor(formVM.name.isBlank ? .red : .clear)
             }
             Section {
-                Map(coordinateRegion: $formVM.region)
-                    .frame(height: 300)
+                VStack{
+                    Map(coordinateRegion: $formVM.region)
+                        .frame(height: 300)
+                    HStack{
+                        Text("Zoom In").onTapGesture {
+                            formVM.region.span.latitudeDelta *= 0.9
+                            formVM.region.span.longitudeDelta *= 0.9
+                        }
+                        Text("Zoom Out").onTapGesture {
+                            formVM.region.span.latitudeDelta /= 0.9
+                            formVM.region.span.longitudeDelta /= 0.9
+                        }
+                    }
+                }
             }
             
         }

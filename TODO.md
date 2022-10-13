@@ -2,8 +2,10 @@
 
 
 
-- Map displays city 
 - Edit Country 
+- Edit/Readonly-Switch in CityView
+- Cloud Exchange
+
 
 
 # Erledigte Punkte
@@ -22,4 +24,5 @@
  - Required Fields
 - StatisticsView Update überarbeiten 
 - Focus  in CityView eingebaut
+- Map displays city 
 
