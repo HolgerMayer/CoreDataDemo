@@ -116,6 +116,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		54447F5228F8874A0005879E /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		544E513A28F57B4400D608BB /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
@@ -166,6 +173,7 @@
 		54D680C428F27DFC00B43C86 /* CoreDataDemo */ = {
 			isa = PBXGroup;
 			children = (
+				54447F5228F8874A0005879E /* Resources */,
 				54DDA03628F73D99009FD0D9 /* Extensions */,
 				54D6810528F2847A00B43C86 /* Views */,
 				54D680F428F27F3500B43C86 /* Model */,

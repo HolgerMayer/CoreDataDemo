@@ -9,25 +9,22 @@ import SwiftUI
 import MapKit
 
 struct CityView: View {
+
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.managedObjectContext) private var viewContext
     
-      @ObservedObject var formVM : CityViewModel
-     @FocusState private var focus: AnyKeyPath?
+    @ObservedObject var formVM : CityViewModel
+    @FocusState private var focus: AnyKeyPath?
+    @State private var isEditing = false
     
     var body: some View {
         Form {
-            Section {
-                TextField("City name", text:$formVM.name)
-                    .focused($focus,equals: \CityViewModel.name)
-                TextField("Population", value: $formVM.population, format: .number)
-                    .focused($focus,equals: \CityViewModel.population)
-                Toggle("Capital", isOn: $formVM.isCapital)
-              }  footer: {
-                Text("Name is required")
-                    .font(.caption)
-                    .foregroundColor(formVM.name.isBlank ? .red : .clear)
+            if (isEditing) {
+                editableSection
+            } else {
+                readonlySection
             }
+            
             Section {
                 VStack{
                     Map(coordinateRegion: $formVM.region)
@@ -54,7 +51,7 @@ struct CityView: View {
         }.toolbar{
             ToolbarItem(placement:.navigationBarTrailing) {
                 HStack {
-                    updateSaveButton
+                        updateSaveButton
                 }
             }
             ToolbarItemGroup(placement: .keyboard) {
@@ -63,15 +60,47 @@ struct CityView: View {
         }
     }
     
-    var updateSaveButton: some View {
-        Button( formVM.isUpdating ? "Update" : "Save", action: {
-            let shallDismiss = !formVM.isUpdating
-            formVM.update(context: viewContext)
-            if shallDismiss {
-                presentationMode.wrappedValue.dismiss()
+    
+    var editableSection : some View {
+        Section {
+            TextField("City name", text:$formVM.name)
+                .focused($focus,equals: \CityViewModel.name)
+            TextField("Population", value: $formVM.population, format: .number)
+                .focused($focus,equals: \CityViewModel.population)
+            Toggle("Capital", isOn: $formVM.isCapital)
+          }  footer: {
+            Text("Name is required")
+                .font(.caption)
+                .foregroundColor(formVM.name.isBlank ? .red : .clear)
+        }
+    }
+    
+    var readonlySection : some View {
+        Section {
+            Text(formVM.name)
+            Text("\(formVM.population)")
+            if formVM.isCapital {
+                Text(" Captial")
             }
-        })
-        .disabled(!formVM.isValid)
+        }
+    }
+    
+    var updateSaveButton: some View {
+        HStack {
+            if isEditing {
+                Button( formVM.isUpdating ? "Update" : "Save", action: {
+                    let shallDismiss = !formVM.isUpdating
+                    formVM.update(context: viewContext)
+                    self.isEditing.toggle()
+                    if shallDismiss {
+                        presentationMode.wrappedValue.dismiss()
+                    }
+                })
+                .disabled(!formVM.isValid)
+            } else {
+                Button("Edit", action: { self.isEditing.toggle()})
+            }
+        }
     }
     
     ///
