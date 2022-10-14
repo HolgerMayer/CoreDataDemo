@@ -18,6 +18,8 @@
 		54C178C628F95B7600B7442C /* CountryCityData.csv in Resources */ = {isa = PBXBuildFile; fileRef = 54C178C528F95B7600B7442C /* CountryCityData.csv */; };
 		54C178C928F960FA00B7442C /* CSV in Frameworks */ = {isa = PBXBuildFile; productRef = 54C178C828F960FA00B7442C /* CSV */; };
 		54C178CD28F9AEFD00B7442C /* ModelDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C178CC28F9AEFD00B7442C /* ModelDataTests.swift */; };
+		54C178D228F9B01400B7442C /* CountryViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C178D128F9B01400B7442C /* CountryViewModelTests.swift */; };
+		54C178D428F9B02400B7442C /* CityViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C178D328F9B02400B7442C /* CityViewModelTests.swift */; };
 		54D680C628F27DFC00B43C86 /* CoreDataDemoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D680C528F27DFC00B43C86 /* CoreDataDemoApp.swift */; };
 		54D680C828F27DFC00B43C86 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D680C728F27DFC00B43C86 /* ContentView.swift */; };
 		54D680CA28F27DFD00B43C86 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 54D680C928F27DFD00B43C86 /* Assets.xcassets */; };
@@ -71,6 +73,8 @@
 		5454753C28F443DB00BC704C /* CountryServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryServiceTests.swift; sourceTree = "<group>"; };
 		54C178C528F95B7600B7442C /* CountryCityData.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CountryCityData.csv; sourceTree = "<group>"; };
 		54C178CC28F9AEFD00B7442C /* ModelDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelDataTests.swift; sourceTree = "<group>"; };
+		54C178D128F9B01400B7442C /* CountryViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryViewModelTests.swift; sourceTree = "<group>"; };
+		54C178D328F9B02400B7442C /* CityViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityViewModelTests.swift; sourceTree = "<group>"; };
 		54D680C228F27DFC00B43C86 /* CoreDataDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoreDataDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		54D680C528F27DFC00B43C86 /* CoreDataDemoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataDemoApp.swift; sourceTree = "<group>"; };
 		54D680C728F27DFC00B43C86 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -159,6 +163,31 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
+		54C178CE28F9AFF300B7442C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				54C178CF28F9AFF800B7442C /* Entities */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		54C178CF28F9AFF800B7442C /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				54C178D028F9AFFD00B7442C /* ViewModels */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		54C178D028F9AFFD00B7442C /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				54C178D128F9B01400B7442C /* CountryViewModelTests.swift */,
+				54C178D328F9B02400B7442C /* CityViewModelTests.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
 		54D680B928F27DFC00B43C86 = {
 			isa = PBXGroup;
 			children = (
@@ -207,6 +236,7 @@
 		54D680DA28F27DFD00B43C86 /* CoreDataDemoTests */ = {
 			isa = PBXGroup;
 			children = (
+				54C178CE28F9AFF300B7442C /* Views */,
 				5454753828F4429D00BC704C /* Model */,
 				54D680DB28F27DFD00B43C86 /* CoreDataDemoTests.swift */,
 			);
@@ -462,9 +492,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				5454753D28F443DB00BC704C /* CountryServiceTests.swift in Sources */,
+				54C178D228F9B01400B7442C /* CountryViewModelTests.swift in Sources */,
 				54C178CD28F9AEFD00B7442C /* ModelDataTests.swift in Sources */,
 				5454753B28F443C800BC704C /* CityServiceTests.swift in Sources */,
 				54D680DC28F27DFD00B43C86 /* CoreDataDemoTests.swift in Sources */,
+				54C178D428F9B02400B7442C /* CityViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
