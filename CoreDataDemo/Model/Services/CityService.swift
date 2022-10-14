@@ -72,6 +72,43 @@ latitude: Double = 0.0, longitude: Double = 0.0,
             return -1
         }
     }
+    
+    static func deleteAll(_ context : NSManagedObjectContext) throws{
+        // Specify a batch to delete with a fetch request
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult>
+        fetchRequest = NSFetchRequest(entityName: "City")
+
+        // Create a batch delete request for the
+        // fetch request
+        let deleteRequest = NSBatchDeleteRequest(
+            fetchRequest: fetchRequest
+        )
+
+        // Specify the result of the NSBatchDeleteRequest
+        // should be the NSManagedObject IDs for the
+        // deleted objects
+        deleteRequest.resultType = .resultTypeObjectIDs
+
+       // Perform the batch delete
+        let batchDelete = try context.execute(deleteRequest)
+            as? NSBatchDeleteResult
+
+        guard let deleteResult = batchDelete?.result
+            as? [NSManagedObjectID]
+            else { return }
+
+        let deletedObjects: [AnyHashable: Any] = [
+            NSDeletedObjectsKey: deleteResult
+        ]
+
+        // Merge the delete changes into the managed
+        // object context
+        NSManagedObjectContext.mergeChanges(
+            fromRemoteContextSave: deletedObjects,
+            into: [context]
+        )
+    }
+
 }
 
 

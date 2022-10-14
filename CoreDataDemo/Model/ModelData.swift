@@ -63,8 +63,8 @@ struct ModelData {
         
         var countryID = countryHash[name]
         if countryID == nil {
-            
-            guard let country = CountryService.create(name: name, context: context) else {
+            let flag = flagForName(name)
+            guard let country = CountryService.create(name: name, flag:flag,context: context) else {
                 return UUID()
             }
             
@@ -82,4 +82,18 @@ struct ModelData {
         let _ = CityService.create(name:city,countryID: countryID,latitude: latitude,longitude: longitude,context: context)
     }
     
+    private func flagForName(_ name: String) -> String {
+        
+        switch name {
+        case "China" :
+            return "🇨🇳"
+        case "United States" :
+            return "🇺🇸"
+        case "Canada" :
+            return "🇨🇦"
+        default :
+            return "?"
+        }
+        
+    }
 }

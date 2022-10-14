@@ -65,7 +65,11 @@ struct CountryListView: View {
             }
              ToolbarItem(placement: .bottomBar) {
                 Button("Initialize") {
-                    PersistenceController.loadData(viewContext: viewContext)
+                    do {
+                        try PersistenceController.loadData(viewContext: viewContext)
+                    } catch {
+                        print("Error while setup")
+                    }
                     needsUpdate.toggle()
                 }
             }

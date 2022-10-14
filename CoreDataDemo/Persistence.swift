@@ -15,10 +15,10 @@ struct PersistenceController {
         let result = PersistenceController(inMemory: true)
         let viewContext = result.container.viewContext
         
-        PersistenceController.loadData(viewContext: viewContext)
         
         do {
-            try viewContext.save()
+            try PersistenceController.loadData(viewContext: viewContext)
+             try viewContext.save()
         } catch {
             // Replace this implementation with code to handle the error appropriately.
             // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
@@ -70,19 +70,16 @@ struct PersistenceController {
     }
     
     
-    static func loadData(viewContext : NSManagedObjectContext){
-/*
-        let canada = CountryService.create(name: "Canada", flag:"🇨🇦",context: viewContext)
+    static func loadData(viewContext : NSManagedObjectContext) throws{
         
-        let _ = CityService.create(name: "Vancover", countryID: canada!.id! , population: 2632000,context: viewContext)
-        let _ = CityService.create(name: "Victoria", countryID: canada!.id! ,capital:true, population: 394000,context: viewContext)
-        let _ = CityService.create(name: "Toronto", countryID: canada!.id! , population: 6313000,context: viewContext)
+        // remove all objects from entities
+        do {
+            try CityService.deleteAll(viewContext)
+            try CountryService.deleteAll(viewContext)
+        } catch {
+            print ("Error while deleting all objects")
+        }
         
-        let usa = CountryService.create(name: "United States", flag:"🇺🇸", context: viewContext)
-        let _ = CityService.create(name: "Seattle", countryID: usa!.id! , population: 4102100,context: viewContext)
-        let _ = CityService.create(name: "Denver", countryID: usa!.id! , capital:true,population: 2897000,context: viewContext)
-        let _ = CityService.create(name: "Washington D.C.", countryID: usa!.id! , population: 5434000,latitude: 38.900497, longitude:-77.007507,context: viewContext)
-  */
         var modelData = ModelData()
         
         modelData.load(context:viewContext)
