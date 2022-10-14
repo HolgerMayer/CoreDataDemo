@@ -9,12 +9,24 @@ import Foundation
 import CoreData
 import CSV
 
+struct CountryEmoji : Codable {
+    var name : String
+    var code : String
+    var emoji : String
+    var unicode : String
+    var image : String
+}
 
 struct ModelData {
+    
+    
     
     private var countryHash : [String: UUID] = [String: UUID]()
     
     mutating func  load( context : NSManagedObjectContext) {
+        
+        
+        loadCountryHash(context:context)
         
         guard let url = Bundle.main.url(forResource: "CountryCityData", withExtension: "csv") else {
             print("Error : no bundle file CountryCityData.csv")
@@ -58,6 +70,37 @@ struct ModelData {
             print("\(csv["city"]!)") // => "foo"
         }
     }
+    
+    
+    private mutating func loadCountryHash(context:NSManagedObjectContext){
+        guard let url = Bundle.main.url(forResource: "CountryEmoji", withExtension: "json") else {
+            print("Error : no bundle file CountryEmoji.json")
+            return
+        }
+        
+        guard let data = try? Data(contentsOf: url) else {
+            print("Error : can't convert to dataCountryEmoji.json ")
+            return
+        }
+        
+        let decoder = JSONDecoder()
+
+        guard let jsonCountryEmojis = try? decoder.decode([CountryEmoji].self, from: data) else {
+            print("Error : can't parse to dataCountryEmoji.json ")
+            return
+        }
+        
+        for countryEmoji in jsonCountryEmojis {
+            guard let country = CountryService.create(name: countryEmoji.name, flag:countryEmoji.emoji,context: context) else {
+                print("Error : Unable to save \(countryEmoji.name)")
+                return
+            }
+            
+            countryHash[countryEmoji.name] = country.id!
+        }
+
+    }
+
     
     private mutating func getCountryID(_ name:String, context:NSManagedObjectContext)-> UUID {
         

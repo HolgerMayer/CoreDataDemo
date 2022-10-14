@@ -20,6 +20,7 @@
 		54C178CD28F9AEFD00B7442C /* ModelDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C178CC28F9AEFD00B7442C /* ModelDataTests.swift */; };
 		54C178D228F9B01400B7442C /* CountryViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C178D128F9B01400B7442C /* CountryViewModelTests.swift */; };
 		54C178D428F9B02400B7442C /* CityViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C178D328F9B02400B7442C /* CityViewModelTests.swift */; };
+		54C178D628F9EFCA00B7442C /* CountryEmoji.json in Resources */ = {isa = PBXBuildFile; fileRef = 54C178D528F9EFCA00B7442C /* CountryEmoji.json */; };
 		54D680C628F27DFC00B43C86 /* CoreDataDemoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D680C528F27DFC00B43C86 /* CoreDataDemoApp.swift */; };
 		54D680C828F27DFC00B43C86 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D680C728F27DFC00B43C86 /* ContentView.swift */; };
 		54D680CA28F27DFD00B43C86 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 54D680C928F27DFD00B43C86 /* Assets.xcassets */; };
@@ -75,6 +76,7 @@
 		54C178CC28F9AEFD00B7442C /* ModelDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelDataTests.swift; sourceTree = "<group>"; };
 		54C178D128F9B01400B7442C /* CountryViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryViewModelTests.swift; sourceTree = "<group>"; };
 		54C178D328F9B02400B7442C /* CityViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityViewModelTests.swift; sourceTree = "<group>"; };
+		54C178D528F9EFCA00B7442C /* CountryEmoji.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CountryEmoji.json; sourceTree = "<group>"; };
 		54D680C228F27DFC00B43C86 /* CoreDataDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoreDataDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		54D680C528F27DFC00B43C86 /* CoreDataDemoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataDemoApp.swift; sourceTree = "<group>"; };
 		54D680C728F27DFC00B43C86 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -131,6 +133,7 @@
 		54447F5228F8874A0005879E /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				54C178D528F9EFCA00B7442C /* CountryEmoji.json */,
 				54C178C528F95B7600B7442C /* CountryCityData.csv */,
 			);
 			path = Resources;
@@ -150,6 +153,7 @@
 			children = (
 				5454753928F442A500BC704C /* Services */,
 				54C178CC28F9AEFD00B7442C /* ModelDataTests.swift */,
+				54C178CE28F9AFF300B7442C /* Views */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -236,7 +240,6 @@
 		54D680DA28F27DFD00B43C86 /* CoreDataDemoTests */ = {
 			isa = PBXGroup;
 			children = (
-				54C178CE28F9AFF300B7442C /* Views */,
 				5454753828F4429D00BC704C /* Model */,
 				54D680DB28F27DFD00B43C86 /* CoreDataDemoTests.swift */,
 			);
@@ -436,6 +439,7 @@
 			files = (
 				54D680CD28F27DFD00B43C86 /* Preview Assets.xcassets in Resources */,
 				54C178C628F95B7600B7442C /* CountryCityData.csv in Resources */,
+				54C178D628F9EFCA00B7442C /* CountryEmoji.json in Resources */,
 				54D680CA28F27DFD00B43C86 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
