@@ -17,6 +17,7 @@ class CityViewModel : ObservableObject {
     @Published var population : Int
     @Published var isCapital : Bool
     @Published var region : MKCoordinateRegion
+    
     @Published var isEditing : Bool
   
     var countryID: UUID
