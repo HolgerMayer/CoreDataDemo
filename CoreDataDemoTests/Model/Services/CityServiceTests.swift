@@ -27,9 +27,46 @@ final class CityServiceTests: XCTestCase {
         XCTAssertNotNil(result)
         XCTAssertNotNil(result!.id)
         XCTAssertEqual(result!.name!, "Rome")
-        XCTAssertTrue(result!.captial)
+        XCTAssertTrue(result!.capital)
         XCTAssertEqual(result!.population, 10)
     }
     
+    func testDeleteAll_NothingToDelete() throws {
+        
+        let context = PersistenceController.test.container.viewContext
+        XCTAssertEqual(CityService.count(context:context),0)
+        
+        try CityService.deleteAll(context)
+        
+        XCTAssertEqual(CityService.count(context:context),0)
+    }
     
+    func testDeleteAll_ModelData() throws {
+        
+        let context = PersistenceController.test.container.viewContext
+        var modelData = ModelData()
+        
+        modelData.load(context: context)
+        
+        XCTAssertEqual(CountryService.count(context:context), 119)// 119 Countries in 1000 lines of data
+        XCTAssertEqual(CityService.count(context:context),1000)
+
+        try CityService.deleteAll(context)
+        
+        XCTAssertEqual(CountryService.count(context:context),119)
+        XCTAssertEqual(CityService.count(context: context),0)
+    }
+    
+    func testDeleteWhereCountryIDis() throws {
+        let context = PersistenceController.test.container.viewContext
+        let country1 = CountryService.create(name: "Italy", context: context)
+        let _ = CityService.create(name: "Rome", countryID: country1!.id!,capital: true, population: 10, context: context)
+        let country2 = CountryService.create(name: "United States", context: context)
+        let _ = CityService.create(name: "New York", countryID: country2!.id!,capital: true, population: 10, context: context)
+
+        try CityService.deleteWhereCountryIDis(country1!.id!, context: context)
+        
+        XCTAssertEqual(CountryService.count(context:context),2)
+        XCTAssertEqual(CityService.count(context: context),1)
+    }
 }

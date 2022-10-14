@@ -29,4 +29,46 @@ final class CountryServiceTests: XCTestCase {
         XCTAssertEqual(result!.name!, "Italy")
     }
 
+    
+    func testDeleteAll_NothingToDelete() throws {
+        
+        let context = PersistenceController.test.container.viewContext
+        XCTAssertEqual(CountryService.count(context:context),0)
+        
+        try CountryService.deleteAll(context)
+        
+        XCTAssertEqual(CountryService.count(context:context),0)
+    }
+    
+    func testDeleteAll_ModelData() throws {
+        
+        let context = PersistenceController.test.container.viewContext
+        var modelData = ModelData()
+        
+        modelData.load(context: context)
+        XCTAssertTrue(CountryService.count(context:context) > 0)
+        XCTAssertEqual(CountryService.count(context:context),119) // 119 Countries in 1000 lines of data
+
+        try CountryService.deleteAll(context)
+        
+        XCTAssertEqual(CountryService.count(context:context),0)
+        XCTAssertEqual(CityService.count(context: context),1000)
+    }
+    
+    func testDeleteObject_recusiveRemoveCity() throws {
+        let context = PersistenceController.test.container.viewContext
+        let country = CountryService.create(name: "Italy", context: context)
+        let _ = CityService.create(name: "Rome", countryID: country!.id!, context: context)
+        XCTAssertEqual(CountryService.count(context:context),1)
+        XCTAssertEqual(CityService.count(context: context),1)
+
+        CountryService.delete(country!, context: context)
+        
+        
+        XCTAssertEqual(CountryService.count(context:context),0)
+        XCTAssertEqual(CityService.count(context: context),0)
+
+        
+    }
+    
 }
