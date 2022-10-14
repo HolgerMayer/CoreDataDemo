@@ -7,6 +7,7 @@
 
 import CoreData
 
+
 struct PersistenceController {
     static let shared = PersistenceController()
     
@@ -70,6 +71,7 @@ struct PersistenceController {
     
     
     static func loadData(viewContext : NSManagedObjectContext){
+/*
         let canada = CountryService.create(name: "Canada", flag:"🇨🇦",context: viewContext)
         
         let _ = CityService.create(name: "Vancover", countryID: canada!.id! , population: 2632000,context: viewContext)
@@ -80,5 +82,9 @@ struct PersistenceController {
         let _ = CityService.create(name: "Seattle", countryID: usa!.id! , population: 4102100,context: viewContext)
         let _ = CityService.create(name: "Denver", countryID: usa!.id! , capital:true,population: 2897000,context: viewContext)
         let _ = CityService.create(name: "Washington D.C.", countryID: usa!.id! , population: 5434000,latitude: 38.900497, longitude:-77.007507,context: viewContext)
+  */
+        var modelData = ModelData()
+        
+        modelData.load(context:viewContext)
     }
 }
