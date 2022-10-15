@@ -4,22 +4,25 @@
 //
 //  Created by Holger Mayer on 14.10.22.
 //
+// Country-City-CSV : https://www.mockaroo.com
+// Emoji-JSON : https://github.com/risan/country-flag-emoji-json
+
 
 import Foundation
 import CoreData
 import CSV
 
-struct CountryEmoji : Codable {
-    var name : String
-    var code : String
-    var emoji : String
-    var unicode : String
-    var image : String
-}
+
 
 struct ModelData {
     
-    
+    struct CountryEmoji : Codable {
+        var name : String
+        var code : String
+        var emoji : String
+        var unicode : String
+        var image : String
+    }
     
     private var countryHash : [String: UUID] = [String: UUID]()
     

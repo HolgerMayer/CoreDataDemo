@@ -1,12 +1,11 @@
 #  Offene Punkte
 
-
-
-
-- Edit/Readonly-Switch in CityView
+-Country-List Zahlen-Anzeige als Bean mit Anzahl der Städte-Records eines Landes
+- Fehler : Bei Anwahl einer City word eine ausgeblendete Country-Liste wieder eingeblendet (Column 1)
 - Cloud Exchange
-
-
+- UniTests
+- UI-Tests
+- DocC-Dokumentation
 
 # Erledigte Punkte
 
@@ -26,4 +25,4 @@
 - Focus  in CityView eingebaut
 - Map displays city 
 - Edit Country 
-
+- Edit/Readonly-Switch in CityView
