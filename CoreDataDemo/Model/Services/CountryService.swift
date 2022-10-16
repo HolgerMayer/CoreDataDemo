@@ -97,6 +97,21 @@ class CountryService : EntityService {
             return -1
         }
     }
+    
+    static func queryByID(_ id: UUID,context:NSManagedObjectContext) -> Country? {
+        let fetchRequest: NSFetchRequest<Country> = Country.fetchRequest()
+        
+        let query = NSPredicate(format: "%K == %@", "id", id as CVarArg)
+       
+        fetchRequest.predicate = query
+        
+        do {
+            return try context.fetch(fetchRequest).first
+        } catch {
+          print("Failed to fetch country: \(error)")
+          return nil
+        }
+    }
 }
 
 

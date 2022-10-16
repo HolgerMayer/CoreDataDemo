@@ -47,7 +47,7 @@ class CityViewModel : ObservableObject {
     }
     
     var isValid : Bool {
-        return !name.isEmpty
+        return !name.isBlank
     }
     
     var isUpdating : Bool {

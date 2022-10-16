@@ -73,6 +73,21 @@ latitude: Double = 0.0, longitude: Double = 0.0,
         }
     }
     
+    static func queryByID(_ id: UUID,context:NSManagedObjectContext) -> City? {
+        let fetchRequest: NSFetchRequest<City> = City.fetchRequest()
+        
+        let query = NSPredicate(format: "%K == %@", "id", id as CVarArg)
+       
+        fetchRequest.predicate = query
+        
+        do {
+            return try context.fetch(fetchRequest).first
+        } catch {
+          print("Failed to fetch city: \(error)")
+          return nil
+        }
+    }
+    
     static func deleteAll(_ context : NSManagedObjectContext) throws{
         // Specify a batch to delete with a fetch request
         let fetchRequest: NSFetchRequest<NSFetchRequestResult>

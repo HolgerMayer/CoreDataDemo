@@ -19,43 +19,148 @@ final class CountryViewModelTests: XCTestCase {
     }
 
     func testInit() throws {
-        XCTFail()
+        
+        let sut = CountryViewModel()
+        
+        XCTAssertNil( sut.dataItem)
+        XCTAssertEqual(sut.name,"")
+        XCTAssertEqual(sut.flag,"")
+
     }
     
     func testInitWithCountry() throws {
-        XCTFail()
+        let testName = "Germany"
+        let testFlag = "🇩🇪"
+        
+        let country = CountryService.create(name: testName,flag: testFlag, context: PersistenceController.test.container.viewContext)
+        
+
+        let sut = CountryViewModel(country: country!)
+        
+        XCTAssertEqual( sut.dataItem, country)
+        XCTAssertEqual(sut.name,testName)
+        XCTAssertEqual(sut.flag,testFlag)
+
     }
     
 
     func testIsValid_nameEmpty() throws {
-        XCTFail()
+        let sut = CountryViewModel()
+        
+        XCTAssertFalse(sut.isValid)
 
     }
 
     func testIsValid_nameWhitespaces() throws {
-        XCTFail()
+        let sut = CountryViewModel()
+        
+        sut.name = "            "
+        
+        XCTAssertFalse(sut.isValid)
 
     }
     
     func testIsValid_validName() throws {
-        XCTFail()
+        let sut = CountryViewModel()
+        
+        sut.name = "Germany"
+        
+        XCTAssertTrue(sut.isValid)
 
     }
 
     func testIsUpdating_newCountryUnsaved() throws {
-        XCTFail()
+        let sut = CountryViewModel()
+        
+        XCTAssertFalse(sut.isUpdating)
+
     }
     
     
     func testIsUpdating_savedCountry() throws {
-        XCTFail()
+        let testName = "Germany"
+        let testFlag = "🇩🇪"
+        
+        let country = CountryService.create(name: testName,flag: testFlag, context: PersistenceController.test.container.viewContext)
+        
+
+        let sut = CountryViewModel(country: country!)
+        
+        XCTAssertTrue(sut.isUpdating)
+
     }
     
-    func testUpdate_newCountry() throws {
-        XCTFail()
+    func testUpdate_newCountry_NotValid() throws {
+        let context = PersistenceController.test.container.viewContext
+        let count = CountryService.count(context: context)
+        
+        let sut = CountryViewModel()
+        
+        sut.update(context: context)
+        
+        XCTAssertEqual(count,CountryService.count(context: context))
+    }
+   
+    func testUpdate_newCountry_Valid() throws {
+        let context = PersistenceController.test.container.viewContext
+        let count = CountryService.count(context: context)
+        
+        let sut = CountryViewModel()
+        sut.name = "Germany"
+        sut.flag = "🇩🇪"
+        
+        sut.update(context: context)
+        
+        XCTAssertEqual(count+1,CountryService.count(context: context))
+
+    }
+
+    
+    func testUpdate_existingCountry_NotValid() throws {
+        let testName = "Germany"
+        let testFlag = "🇩🇪"
+        let context = PersistenceController.test.container.viewContext
+        let country = CountryService.create(name: testName,flag: testFlag, context:context)
+        let count = CountryService.count(context: context)
+ 
+        let sut = CountryViewModel(country: country!)
+        
+        sut.name = ""
+        sut.flag = "🇧🇪"
+        
+        sut.update(context: context)
+        
+        XCTAssertEqual(count,CountryService.count(context: context))
+        
+        let result = CountryService.queryByID(country!.id!, context: context)
+        XCTAssertNotNil(result)
+        XCTAssertEqual(result!.name!, "Germany")
+        XCTAssertEqual(result!.flag!, "🇩🇪")
     }
     
-    func testUpdate_existingCountry() throws {
-        XCTFail()
-    }
+    
+    func testUpdate_existingCountry_Valid() throws {
+        let testName = "Germany"
+        let testFlag = "🇩🇪"
+        let context = PersistenceController.test.container.viewContext
+        let country = CountryService.create(name: testName,flag: testFlag, context:context)
+        let count = CountryService.count(context: context)
+ 
+        let sut = CountryViewModel(country: country!)
+        
+        sut.name = "Belgium"
+        sut.flag = "🇧🇪"
+        
+        sut.update(context: context)
+        
+        XCTAssertEqual(count,CountryService.count(context: context))
+        
+        let result = CountryService.queryByID(country!.id!, context: context)
+        XCTAssertNotNil(result)
+        XCTAssertEqual(result!.name!, "Belgium")
+        XCTAssertEqual(result!.flag!, "🇧🇪")
+   }
+    
+  
+
 }

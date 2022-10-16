@@ -18,7 +18,7 @@ struct PersistenceController {
         
         do {
             try PersistenceController.loadData(viewContext: viewContext)
-             try viewContext.save()
+            try viewContext.save()
         } catch {
             // Replace this implementation with code to handle the error appropriately.
             // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
@@ -72,6 +72,14 @@ struct PersistenceController {
     
     static func loadData(viewContext : NSManagedObjectContext) throws{
         
+       clearData(viewContext: viewContext)
+        
+        var modelData = ModelData()
+        
+        modelData.load(context:viewContext)
+    }
+    
+    static func clearData(viewContext: NSManagedObjectContext){
         // remove all objects from entities
         do {
             try CityService.deleteAll(viewContext)
@@ -79,9 +87,7 @@ struct PersistenceController {
         } catch {
             print ("Error while deleting all objects")
         }
-        
-        var modelData = ModelData()
-        
-        modelData.load(context:viewContext)
     }
+    
 }
+

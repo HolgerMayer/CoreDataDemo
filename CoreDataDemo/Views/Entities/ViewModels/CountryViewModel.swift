@@ -30,7 +30,7 @@ class CountryViewModel : ObservableObject {
     }
     
     var isValid : Bool {
-        return !name.isEmpty
+        return !name.isBlank
     }
     
     var isUpdating : Bool {
@@ -43,6 +43,7 @@ class CountryViewModel : ObservableObject {
                 dataItem = CountryService.create(name: self.name, flag:self.flag, context: context)
             } else {
                 dataItem!.name = self.name
+                dataItem!.flag = self.flag
                 CountryService.update(dataItem!, context: context)
             }
         }

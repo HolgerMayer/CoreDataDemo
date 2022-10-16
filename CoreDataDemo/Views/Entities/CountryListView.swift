@@ -64,6 +64,13 @@ struct CountryListView: View {
                 }
             }
              ToolbarItem(placement: .bottomBar) {
+                 Button("clear") {
+                     
+                     PersistenceController.clearData(viewContext: viewContext)
+                     
+                     needsUpdate.toggle()
+                     
+                 }
                 Button("Initialize") {
                     do {
                         try PersistenceController.loadData(viewContext: viewContext)
