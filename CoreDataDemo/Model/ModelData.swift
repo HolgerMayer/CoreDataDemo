@@ -31,32 +31,40 @@ struct ModelData {
         
         loadCountryHash(context:context)
         
-        guard let url = Bundle.main.url(forResource: "CountryCityData", withExtension: "csv") else {
-            print("Error : no bundle file CountryCityData.csv")
+        guard let url = Bundle.main.url(forResource: "CountryCityDataLarge", withExtension: "csv") else {
+            print("Error : no bundle file CountryCityDataLarge.csv")
             return
         }
         
         guard let stream = InputStream(url: url) else {
-            print("Error : can't create input stream for CountryCityData.csv")
+            print("Error : can't create input stream for CountryCityDataLarge.csv")
             return
         }
         
         let csv = try! CSVReader(stream: stream,
                                  codecType: UTF8.self,
-                                 hasHeaderRow: true
+                                 hasHeaderRow: true,
+                                 delimiter:";"
         )
         
         
         while csv.next() != nil {
-            guard let name = csv["country"] else {
+            guard let country = csv["Country"] else {
                 print("Error - no Country")
                 return
             }
-            
-            guard let city = csv["city"] else {
+            let countryID = getCountryID(country, context: context)
+
+            guard let city = csv["Name"] else {
                 print("Error - no City")
                 return
             }
+            
+            guard let population = Int(csv["Population"] ?? "-1") else {
+                print("Error - no Population")
+                return
+            }
+            /*
             guard let latitude = Double(csv["latitude"] ?? "0.0") else {
                 print("Error - no latitude")
                 return
@@ -65,12 +73,28 @@ struct ModelData {
                 print("Error - no longitude")
                 return
             }
+            */
             
-            let countryID = getCountryID(name, context: context)
             
-            createCity(city:city,latitude:latitude, longitude:longitude, countryID: countryID,context:context)
-            print("\(csv["id"]!)")   // => "1"
-            print("\(csv["city"]!)") // => "foo"
+            guard let coordinate = csv["Coordinates"]  else {
+                
+
+                print("Error - no coordinates")
+                return
+            }
+            
+            let coordinateElements = coordinate.components(separatedBy:",")
+
+            var latitude = 0.0
+            var longitude = 0.0
+            if coordinateElements.count == 2 {
+                latitude = Double(coordinateElements[0]) ?? 0.0
+                longitude = Double(coordinateElements[1]) ?? 0.0
+            }
+            
+            createCity(city:city,population:population,latitude:latitude, longitude:longitude, countryID: countryID,context:context)
+            print("\(csv["ID"] ?? "Unkown")")   // => "1"
+            print("\(csv["Name"] ?? "Unkown")") // => "foo"
         }
     }
     
@@ -123,9 +147,9 @@ struct ModelData {
     }
     
     
-    private func createCity(city:String,latitude:Double, longitude:Double, countryID: UUID, context:NSManagedObjectContext){
+    private func createCity(city:String,population:Int=0, latitude:Double, longitude:Double, countryID: UUID, context:NSManagedObjectContext){
         
-        let _ = CityService.create(name:city,countryID: countryID,latitude: latitude,longitude: longitude,context: context)
+        let _ = CityService.create(name:city,countryID: countryID,population: population,latitude: latitude,longitude: longitude,context: context)
     }
     
     private func flagForName(_ name: String) -> String {

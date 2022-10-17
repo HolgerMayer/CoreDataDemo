@@ -63,24 +63,26 @@ struct CountryListView: View {
                 }.accessibilityIdentifier("AddCountryButton")
             }
              ToolbarItem(placement: .bottomBar) {
-                 Button("clear") {
+                 HStack {
+                     Button("clear") {
+                         
+                         PersistenceController.clearData(viewContext: viewContext)
+                         
+                         needsUpdate.toggle()
+                         
+                     }
+                     .accessibilityIdentifier("ClearDataButton")
                      
-                     PersistenceController.clearData(viewContext: viewContext)
-                     
-                     needsUpdate.toggle()
-                     
+                     Button("Initialize") {
+                         do {
+                             try PersistenceController.loadData(viewContext: viewContext)
+                         } catch {
+                             print("Error while setup")
+                         }
+                         needsUpdate.toggle()
+                     }
+                     .accessibilityIdentifier("InitializeDataButton")
                  }
-                 .accessibilityIdentifier("ClearDataButton")
-                 
-                Button("Initialize") {
-                    do {
-                        try PersistenceController.loadData(viewContext: viewContext)
-                    } catch {
-                        print("Error while setup")
-                    }
-                    needsUpdate.toggle()
-                }
-                .accessibilityIdentifier("InitializeDataButton")
             }
         }
         

@@ -16,7 +16,8 @@
 		5454753B28F443C800BC704C /* CityServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5454753A28F443C800BC704C /* CityServiceTests.swift */; };
 		5454753D28F443DB00BC704C /* CountryServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5454753C28F443DB00BC704C /* CountryServiceTests.swift */; };
 		5464839528FDF3850024417A /* CountryListViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5464839428FDF3850024417A /* CountryListViewTests.swift */; };
-		5464839728FDFB550024417A /* CountryCityDataLarge.csv in Resources */ = {isa = PBXBuildFile; fileRef = 5464839628FDFB550024417A /* CountryCityDataLarge.csv */; };
+		5464839728FDFB550024417A /* CountryCityDataLarge_ORG.csv in Resources */ = {isa = PBXBuildFile; fileRef = 5464839628FDFB550024417A /* CountryCityDataLarge_ORG.csv */; };
+		5464839928FE00530024417A /* CountryCityDataLarge.csv in Resources */ = {isa = PBXBuildFile; fileRef = 5464839828FE00530024417A /* CountryCityDataLarge.csv */; };
 		54C178C628F95B7600B7442C /* CountryCityData.csv in Resources */ = {isa = PBXBuildFile; fileRef = 54C178C528F95B7600B7442C /* CountryCityData.csv */; };
 		54C178C928F960FA00B7442C /* CSV in Frameworks */ = {isa = PBXBuildFile; productRef = 54C178C828F960FA00B7442C /* CSV */; };
 		54C178CD28F9AEFD00B7442C /* ModelDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C178CC28F9AEFD00B7442C /* ModelDataTests.swift */; };
@@ -75,7 +76,8 @@
 		5454753A28F443C800BC704C /* CityServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityServiceTests.swift; sourceTree = "<group>"; };
 		5454753C28F443DB00BC704C /* CountryServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryServiceTests.swift; sourceTree = "<group>"; };
 		5464839428FDF3850024417A /* CountryListViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryListViewTests.swift; sourceTree = "<group>"; };
-		5464839628FDFB550024417A /* CountryCityDataLarge.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CountryCityDataLarge.csv; sourceTree = "<group>"; };
+		5464839628FDFB550024417A /* CountryCityDataLarge_ORG.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CountryCityDataLarge_ORG.csv; sourceTree = "<group>"; };
+		5464839828FE00530024417A /* CountryCityDataLarge.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CountryCityDataLarge.csv; sourceTree = "<group>"; };
 		54C178C528F95B7600B7442C /* CountryCityData.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CountryCityData.csv; sourceTree = "<group>"; };
 		54C178CC28F9AEFD00B7442C /* ModelDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelDataTests.swift; sourceTree = "<group>"; };
 		54C178D128F9B01400B7442C /* CountryViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryViewModelTests.swift; sourceTree = "<group>"; };
@@ -137,7 +139,8 @@
 		54447F5228F8874A0005879E /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				5464839628FDFB550024417A /* CountryCityDataLarge.csv */,
+				5464839828FE00530024417A /* CountryCityDataLarge.csv */,
+				5464839628FDFB550024417A /* CountryCityDataLarge_ORG.csv */,
 				54C178D528F9EFCA00B7442C /* CountryEmoji.json */,
 				54C178C528F95B7600B7442C /* CountryCityData.csv */,
 			);
@@ -452,9 +455,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				54D680CD28F27DFD00B43C86 /* Preview Assets.xcassets in Resources */,
-				5464839728FDFB550024417A /* CountryCityDataLarge.csv in Resources */,
+				5464839728FDFB550024417A /* CountryCityDataLarge_ORG.csv in Resources */,
 				54C178C628F95B7600B7442C /* CountryCityData.csv in Resources */,
 				54C178D628F9EFCA00B7442C /* CountryEmoji.json in Resources */,
+				5464839928FE00530024417A /* CountryCityDataLarge.csv in Resources */,
 				54D680CA28F27DFD00B43C86 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
