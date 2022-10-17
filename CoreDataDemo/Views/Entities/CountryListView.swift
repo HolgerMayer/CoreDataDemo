@@ -42,8 +42,7 @@ struct CountryListView: View {
                             showEditSheet = true
                         })
                     }
-            }
-
+                }
             Spacer()
             StatisticsView()
             
@@ -61,7 +60,7 @@ struct CountryListView: View {
                     Label(title: {Text("Add country")}, icon: {
                         AppSymbol.add
                     })
-                }
+                }.accessibilityIdentifier("AddCountryButton")
             }
              ToolbarItem(placement: .bottomBar) {
                  Button("clear") {
@@ -71,6 +70,8 @@ struct CountryListView: View {
                      needsUpdate.toggle()
                      
                  }
+                 .accessibilityIdentifier("ClearDataButton")
+                 
                 Button("Initialize") {
                     do {
                         try PersistenceController.loadData(viewContext: viewContext)
@@ -79,6 +80,7 @@ struct CountryListView: View {
                     }
                     needsUpdate.toggle()
                 }
+                .accessibilityIdentifier("InitializeDataButton")
             }
         }
         

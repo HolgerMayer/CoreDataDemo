@@ -55,7 +55,8 @@ struct FilteredList<T: NSManagedObject, Content: View>: View {
                     }
             }
           
-        }
+        }.accessibilityIdentifier("DataItem")
+
     }
 
     /// Initilizer with key value semantics for filter

@@ -19,9 +19,13 @@ struct CountryView: View {
             Section {
                 TextField("Country name",
                           text: $formVM.name)
+                .accessibilityIdentifier("CountryNameTextField")
+                
                 TextField("Flag",
                           text: $formVM.flag)
-            }  footer: {
+                .accessibilityIdentifier("FlagTextField")
+                
+           }  footer: {
                     Text("Name is required")
                         .font(.caption)
                         .foregroundColor(formVM.name.isBlank ? .red : .clear)
@@ -38,6 +42,7 @@ struct CountryView: View {
             presentationMode.wrappedValue.dismiss()
         })
         .disabled(!formVM.isValid)
+        .accessibilityIdentifier(formVM.isUpdating ? "UpdateButton" : "SaveButton")
     }
     
     init(country: Country?){
