@@ -1,7 +1,9 @@
 #  Offene Punkte
 
+- BatchInsert im Background beim Import der Daten in Core Data
 -Country-List Zahlen-Anzeige als Bean mit Anzahl der Städte-Records eines Landes
-- Fehler : Bei Anwahl einer City word eine ausgeblendete Country-Liste wieder eingeblendet (Column 1)
+- Fehler : Bei Anwahl einer City iord eine ausgeblendete Country-Liste wieder eingeblendet (Column 1)
+- Im iPhone wird bei Country-Search der CityListView fehlerhaft erstellt
 - Cloud Exchange
 - UniTests
 - UI-Tests
