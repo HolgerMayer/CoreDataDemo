@@ -73,7 +73,17 @@ struct CountryListView: View {
                      }
                      .accessibilityIdentifier("ClearDataButton")
                      
-                     Button("Initialize") {
+                     Button("load 1000") {
+                         do {
+                             try PersistenceController.loadData(1000,viewContext: viewContext)
+                         } catch {
+                             print("Error while setup")
+                         }
+                         needsUpdate.toggle()
+                     }
+                     .accessibilityIdentifier("Load1000Button")
+                     
+                     Button("load all") {
                          do {
                              try PersistenceController.loadData(viewContext: viewContext)
                          } catch {
@@ -81,7 +91,7 @@ struct CountryListView: View {
                          }
                          needsUpdate.toggle()
                      }
-                     .accessibilityIdentifier("InitializeDataButton")
+                     .accessibilityIdentifier("LoadAllButton")
                  }
             }
         }

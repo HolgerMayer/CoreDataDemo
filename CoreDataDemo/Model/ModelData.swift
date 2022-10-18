@@ -26,7 +26,7 @@ struct ModelData {
     
     private var countryHash : [String: UUID] = [String: UUID]()
     
-    mutating func  load( context : NSManagedObjectContext) {
+    mutating func  load(_ noOfCities : Int = -1,  context : NSManagedObjectContext) {
         
         
         loadCountryHash(context:context)
@@ -47,7 +47,7 @@ struct ModelData {
                                  delimiter:";"
         )
         
-        
+        var counter = 0
         while csv.next() != nil {
             guard let country = csv["Country"] else {
                 print("Error - no Country")
@@ -95,6 +95,14 @@ struct ModelData {
             createCity(city:city,population:population,latitude:latitude, longitude:longitude, countryID: countryID,context:context)
             print("\(csv["ID"] ?? "Unkown")")   // => "1"
             print("\(csv["Name"] ?? "Unkown")") // => "foo"
+            
+            if noOfCities >= 0 {
+                counter = counter + 1
+                
+                if counter >= noOfCities {
+                    return
+                }
+            }
         }
     }
     

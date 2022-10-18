@@ -70,13 +70,13 @@ struct PersistenceController {
     }
     
     
-    static func loadData(viewContext : NSManagedObjectContext) throws{
+    static func loadData(_ noOfCities : Int = -1,viewContext : NSManagedObjectContext) throws{
         
        clearData(viewContext: viewContext)
         
         var modelData = ModelData()
         
-        modelData.load(context:viewContext)
+        modelData.load(noOfCities, context:viewContext)
     }
     
     static func clearData(viewContext: NSManagedObjectContext){
