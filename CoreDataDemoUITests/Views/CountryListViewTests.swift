@@ -43,7 +43,6 @@ final class CountryListViewTests: XCTestCase {
         // UI tests must launch the application that they test.
         readyDatabaseAndApp()
         
-        
         app.navigationBars["Countries"]/*@START_MENU_TOKEN@*/.buttons["AddCountryButton"]/*[[".otherElements[\"Add country\"]",".buttons[\"Add country\"]",".buttons[\"AddCountryButton\"]",".otherElements[\"AddCountryButton\"]"],[[[-1,2],[-1,1],[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/.tap()
         
         let addCountryBarTitle = app.staticTexts["Add country"]

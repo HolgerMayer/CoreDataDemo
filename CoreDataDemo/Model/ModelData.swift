@@ -49,7 +49,7 @@ struct ModelData {
         
         var counter = 0
         while csv.next() != nil {
-            guard let country = csv["Country"] else {
+            guard let country = csv["CountryCode"] else {
                 print("Error - no Country")
                 return
             }
@@ -131,7 +131,7 @@ struct ModelData {
                 return
             }
             
-            countryHash[countryEmoji.name] = country.id!
+            countryHash[countryEmoji.code] = country.id!
         }
 
     }
