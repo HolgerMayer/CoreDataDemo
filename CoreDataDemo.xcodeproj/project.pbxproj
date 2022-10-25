@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5439DAC028F620250000C633 /* CityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5439DABF28F620250000C633 /* CityViewModel.swift */; };
+		543BBAD228FF41B500DA7346 /* x.swift in Sources */ = {isa = PBXBuildFile; fileRef = 543BBAD128FF41B500DA7346 /* x.swift */; };
 		54447F5628F95B100005879E /* ModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54447F5528F95B100005879E /* ModelData.swift */; };
 		544E513C28F57B5700D608BB /* CountryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 544E513B28F57B5700D608BB /* CountryViewModel.swift */; };
 		544E513E28F57F7700D608BB /* AppSymbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 544E513D28F57F7700D608BB /* AppSymbol.swift */; };
@@ -67,6 +68,7 @@
 
 /* Begin PBXFileReference section */
 		5439DABF28F620250000C633 /* CityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityViewModel.swift; sourceTree = "<group>"; };
+		543BBAD128FF41B500DA7346 /* x.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = x.swift; sourceTree = "<group>"; };
 		54447F5528F95B100005879E /* ModelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelData.swift; sourceTree = "<group>"; };
 		544E513928F578F500D608BB /* TODO.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = TODO.md; sourceTree = "<group>"; };
 		544E513B28F57B5700D608BB /* CountryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryViewModel.swift; sourceTree = "<group>"; };
@@ -170,6 +172,7 @@
 			isa = PBXGroup;
 			children = (
 				5454753A28F443C800BC704C /* CityServiceTests.swift */,
+				543BBAD128FF41B500DA7346 /* x.swift */,
 				5454753C28F443DB00BC704C /* CountryServiceTests.swift */,
 			);
 			path = Services;
@@ -517,6 +520,7 @@
 				5454753D28F443DB00BC704C /* CountryServiceTests.swift in Sources */,
 				54C178D228F9B01400B7442C /* CountryViewModelTests.swift in Sources */,
 				54C178CD28F9AEFD00B7442C /* ModelDataTests.swift in Sources */,
+				543BBAD228FF41B500DA7346 /* x.swift in Sources */,
 				5454753B28F443C800BC704C /* CityServiceTests.swift in Sources */,
 				54D680DC28F27DFD00B43C86 /* CoreDataDemoTests.swift in Sources */,
 				54C178D428F9B02400B7442C /* CityViewModelTests.swift in Sources */,

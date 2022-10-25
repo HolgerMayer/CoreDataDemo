@@ -28,3 +28,4 @@
 - Map displays city 
 - Edit Country 
 - Edit/Readonly-Switch in CityView
+-BatchDelete
