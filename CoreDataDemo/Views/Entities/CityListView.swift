@@ -49,7 +49,17 @@ struct CityListView: View {
             }
 
         }
-        .navigationTitle("\(country.flag ?? "?") Cities")
+         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+                   ToolbarItem(placement: .principal) {
+                       HStack {
+                           Text(country.flag ?? "?").font(.system(size: 48))
+                           Text(country.name ?? "?").font(.headline)
+                          
+                       }
+                   }
+                                
+        }
     }
     
     init(country : Country){

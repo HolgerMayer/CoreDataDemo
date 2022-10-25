@@ -69,4 +69,15 @@ final class CityServiceTests: XCTestCase {
         XCTAssertEqual(CountryService.count(context:context),2)
         XCTAssertEqual(CityService.count(context: context),1)
     }
+    
+    func testPerformanceExample() throws {
+        
+        
+        let context = PersistenceController.test.container.viewContext
+        var modelData = ModelData()
+        modelData.load(10000, context:context)
+        self.measure {
+            try! CityService.deleteAll(context)
+        }
+    }
 }
