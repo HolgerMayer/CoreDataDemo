@@ -74,22 +74,29 @@ struct CountryListView: View {
                      .accessibilityIdentifier("ClearDataButton")
                      
                      Button("load 1000") {
-                         do {
-                             try PersistenceController.loadData(1000,viewContext: viewContext)
-                         } catch {
-                             print("Error while setup")
-                         }
+                         
+                         Task {
+                             do {
+                                 try await PersistenceController.loadData(1000,viewContext: viewContext)
+                             } catch {
+                                 print("Error while setup")
+                             }     
+                        }
+
                          needsUpdate.toggle()
                      }
                      .accessibilityIdentifier("Load1000Button")
                      
                      Button("load all") {
-                         do {
-                             try PersistenceController.loadData(viewContext: viewContext)
-                         } catch {
-                             print("Error while setup")
-                         }
-                         needsUpdate.toggle()
+                              Task {
+                                  do {
+                                      try await PersistenceController.loadData(viewContext: viewContext)
+                                  } catch {
+                                      print("Error while setup")
+                                  }
+          
+                             }
+                          needsUpdate.toggle()
                      }
                      .accessibilityIdentifier("LoadAllButton")
                  }

@@ -17,8 +17,8 @@ struct PersistenceController {
         
         
         do {
-            try PersistenceController.loadData(viewContext: viewContext)
-            try viewContext.save()
+  //          await try PersistenceController.loadData(viewContext: viewContext)
+  //          try viewContext.save()
         } catch {
             // Replace this implementation with code to handle the error appropriately.
             // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
@@ -70,13 +70,13 @@ struct PersistenceController {
     }
     
     
-    static func loadData(_ noOfCities : Int = -1,viewContext : NSManagedObjectContext) throws{
+    static func loadData(_ noOfCities : Int = -1,viewContext : NSManagedObjectContext) async throws{
         
        clearData(viewContext: viewContext)
         
         var modelData = ModelData()
         
-        modelData.load(noOfCities, context:viewContext)
+        await modelData.load(noOfCities, container:self.shared.container)
     }
     
     static func clearData(viewContext: NSManagedObjectContext){

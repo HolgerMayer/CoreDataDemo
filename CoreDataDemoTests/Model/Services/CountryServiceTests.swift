@@ -40,12 +40,12 @@ final class CountryServiceTests: XCTestCase {
         XCTAssertEqual(CountryService.count(context:context),0)
     }
     
-    func testDeleteAll_ModelData() throws {
+    func testDeleteAll_ModelData() async throws {
         
         let context = PersistenceController.test.container.viewContext
         var modelData = ModelData()
         
-        modelData.load(context: context)
+        await modelData.load( container : PersistenceController.test.container)
         XCTAssertTrue(CountryService.count(context:context) > 0)
         XCTAssertEqual(CountryService.count(context:context),119) // 119 Countries in 1000 lines of data
 

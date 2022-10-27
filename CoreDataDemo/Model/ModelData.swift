@@ -26,88 +26,82 @@ struct ModelData {
     
     private var countryHash : [String: UUID] = [String: UUID]()
     
-    mutating func  load(_ noOfCities : Int = -1,  context : NSManagedObjectContext) {
+    
+    /// A persistent container to set up the Core Data stack.
+    var container: NSPersistentContainer {
+        PersistenceController.shared.container
+    }
+
+
+    var taskContext: NSManagedObjectContext {
+        let context = container.newBackgroundContext()
+        context.name = "importContext"
+        context.transactionAuthor = "importCSV"
+        return context
+
+    }
+    
+    mutating func  load(_ noOfCities : Int = -1,  container : NSPersistentContainer) async {
         
-        
-        loadCountryHash(context:context)
+   
         
         guard let url = Bundle.main.url(forResource: "CountryCityDataLarge", withExtension: "csv") else {
             print("Error : no bundle file CountryCityDataLarge.csv")
             return
         }
-        
-        guard let stream = InputStream(url: url) else {
-            print("Error : can't create input stream for CountryCityDataLarge.csv")
-            return
-        }
-        
-        let csv = try! CSVReader(stream: stream,
-                                 codecType: UTF8.self,
-                                 hasHeaderRow: true,
-                                 delimiter:";"
-        )
-        
-        var counter = 0
-        while csv.next() != nil {
-            guard let country = csv["CountryCode"] else {
-                print("Error - no Country")
-                return
-            }
-            let countryID = getCountryID(country, context: context)
+       
 
-            guard let city = csv["Name"] else {
-                print("Error - no City")
-                return
-            }
-            
-            guard let population = Int(csv["Population"] ?? "-1") else {
-                print("Error - no Population")
-                return
-            }
-            /*
-            guard let latitude = Double(csv["latitude"] ?? "0.0") else {
-                print("Error - no latitude")
-                return
-            }
-            guard let longitude = Double(csv["longitude"] ?? "0.0")  else {
-                print("Error - no longitude")
-                return
-            }
-            */
-            
-            
-            guard let coordinate = csv["Coordinates"]  else {
-                
+        do {
+            let context = container.viewContext
+            try await loadCountryHash(context:context)
 
-                print("Error - no coordinates")
-                return
-            }
+            let cityList = try CityCSV(from: url, countryHash:countryHash, context: context)
             
-            let coordinateElements = coordinate.components(separatedBy:",")
-
-            var latitude = 0.0
-            var longitude = 0.0
-            if coordinateElements.count == 2 {
-                latitude = Double(coordinateElements[0]) ?? 0.0
-                longitude = Double(coordinateElements[1]) ?? 0.0
-            }
+            // Add name and author to identify source of persistent history changes.
             
-            createCity(city:city,population:population,latitude:latitude, longitude:longitude, countryID: countryID,context:context)
-            print("\(csv["ID"] ?? "Unkown")")   // => "1"
-            print("\(csv["Name"] ?? "Unkown")") // => "foo"
+            await syncCities(with: cityList.cityPropertiesList)
             
-            if noOfCities >= 0 {
-                counter = counter + 1
-                
-                if counter >= noOfCities {
-                    return
-                }
-            }
+        } catch {
+            print("Error : CityCSV")
         }
     }
     
     
-    private mutating func loadCountryHash(context:NSManagedObjectContext){
+    private mutating func syncCities(with cityPropertiesList: [CityProperties]) async {
+        
+        let bgContext = container.newBackgroundContext()
+        bgContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        let mainContext = container.viewContext
+        
+ 
+             bgContext.performAndWait {
+                 let insertRequest = self.newBatchInsertRequest(with: cityPropertiesList)
+                 insertRequest.resultType = NSBatchInsertRequestResultType.objectIDs
+               let result = try? bgContext.execute(insertRequest) as? NSBatchInsertResult
+        
+                if let objectIDs = result?.result as? [NSManagedObjectID], !objectIDs.isEmpty {
+                    let save = [NSInsertedObjectsKey: objectIDs]
+                    NSManagedObjectContext.mergeChanges(fromRemoteContextSave: save, into: [mainContext])
+                }
+            }
+        }
+    
+    private func newBatchInsertRequest(with propertyList: [CityProperties]) -> NSBatchInsertRequest {
+        var index = 0
+        let total = propertyList.count
+
+        // Provide one dictionary at a time when the closure is called.
+        let batchInsertRequest = NSBatchInsertRequest(entity: City.entity(), dictionaryHandler: { dictionary in
+            guard index < total else { return true }
+            dictionary.addEntries(from: propertyList[index].dictionaryValue)
+            index += 1
+            return false
+        })
+        return batchInsertRequest
+    }
+
+    
+    private mutating func loadCountryHash(context:NSManagedObjectContext) async throws {
         guard let url = Bundle.main.url(forResource: "CountryEmoji", withExtension: "json") else {
             print("Error : no bundle file CountryEmoji.json")
             return
@@ -134,10 +128,11 @@ struct ModelData {
             countryHash[countryEmoji.code] = country.id!
         }
 
+        try context.save()
     }
 
     
-    private mutating func getCountryID(_ name:String, context:NSManagedObjectContext)-> UUID {
+    private mutating func getCountryID(_ code : String, name:String,flag : String, context:NSManagedObjectContext)-> UUID {
         
         var countryID = countryHash[name]
         if countryID == nil {

@@ -18,7 +18,7 @@ final class ModelDataTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testLoadTest() throws {
+    func testLoadTest() async throws {
         let context = PersistenceController.test.container.viewContext
         
         try CountryService.deleteAll(context)
@@ -26,19 +26,24 @@ final class ModelDataTests: XCTestCase {
 
         var modelData = ModelData()
         
-        modelData.load(context: context)
+        await modelData.load( container : PersistenceController.test.container)
         
         XCTAssertEqual(CountryService.count(context:context),119)// 119 Countries in 1000 lines of data
         XCTAssertEqual(CityService.count(context:context),1000)
 
     }
 
-    func testLoadPerformanceTest() throws {
+    func testLoadPerformanceTest() async throws {
         let context = PersistenceController.test.container.viewContext
-        var modelData = ModelData()
-        // This is an example of a performance test case.
+         // This is an example of a performance test case.
+        let exp = expectation(description: "Finished")
         self.measure {
-            modelData.load(context: context)
+            Task {
+                var modelData = ModelData()
+                await modelData.load( container : PersistenceController.test.container)
+                exp.fulfill()
+            }
+            wait(for: [exp], timeout: 200.0)
         }
     }
 
