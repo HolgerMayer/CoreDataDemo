@@ -47,6 +47,9 @@ struct CountryListView: View {
             StatisticsView()
             
         }
+        .onChange(of:$navigationRouter.selectedCountry.wrappedValue, perform: { value in
+            navigationRouter.resetCity()
+                  })
          .searchable(text: $filterString, prompt: "Search")
         .sheet(isPresented: $showEditSheet ) {
             NavigationStack {

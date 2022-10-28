@@ -23,7 +23,7 @@ struct CityView: View {
             } else {
                 readonlySection
             }
-            
+/*
             Section {
                 VStack{
                     Map(coordinateRegion: $formVM.region)
@@ -40,7 +40,7 @@ struct CityView: View {
                     }
                 }
             }
-            
+*/
         }
         .task {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {

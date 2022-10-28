@@ -69,11 +69,13 @@ struct CityListView: View {
   
     
     private func queryPredicate() -> NSPredicate {
+        let cid = country.id ?? UUID()
+
         if filterString.isEmpty {
-            return  NSPredicate(format: "(countryID == %@)",country.id! as NSUUID)
+            return  NSPredicate(format: "(countryID == %@)",cid as NSUUID)
         }
         
-        return NSPredicate(format: "(countryID == %@) AND (name CONTAINS [c] %@)",country.id! as NSUUID,  filterString)
+        return NSPredicate(format: "(countryID == %@) AND (name CONTAINS [c] %@)",cid as NSUUID,  filterString)
     }
     
     private func sortDescriptors() -> [NSSortDescriptor] {

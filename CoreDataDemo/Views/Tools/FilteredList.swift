@@ -64,6 +64,7 @@ struct FilteredList<T: NSManagedObject, Content: View>: View {
         
         self.context = context
         var sortDescriptor = [NSSortDescriptor]()
+        
         if !sortKey.isEmpty {
             sortDescriptor = [NSSortDescriptor(key:sortKey,ascending:true)]
         }

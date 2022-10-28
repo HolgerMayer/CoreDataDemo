@@ -27,7 +27,7 @@ class CityViewModel : ObservableObject {
         self.name = ""
         self.population = 0
         self.isCapital = false
-        self.countryID = country.id!
+        self.countryID = country.id ?? UUID()
         self.dataItem = nil
         self.region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 51.507222, longitude: -0.1275), span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
         self.isEditing = true
@@ -39,7 +39,7 @@ class CityViewModel : ObservableObject {
         self.name = city.name ?? ""
         self.population = Int(city.population)
         self.isCapital = city.capital
-        self.countryID = city.countryID!
+        self.countryID = city.countryID ?? UUID()
         self.dataItem = city
         self.region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: city.latitude, longitude:city.longitude), span: MKCoordinateSpan(latitudeDelta:city.latitudeDelta, longitudeDelta:city.longitudeDelta))
         self.isEditing = false
