@@ -16,15 +16,8 @@ import CSV
 
 struct ModelData {
     
-    struct CountryEmoji : Codable {
-        var name : String
-        var code : String
-        var emoji : String
-        var unicode : String
-        var image : String
-    }
-    
-    private var countryHash : [String: UUID] = [String: UUID]()
+        
+    var countryImport : CountryImport
     
     
     /// A persistent container to set up the Core Data stack.
@@ -41,9 +34,16 @@ struct ModelData {
 
     }
     
+    init() {
+        
+        self.countryImport = CountryImport()
+    }
+    
     mutating func  load(_ noOfCities : Int = -1,  container : NSPersistentContainer) async {
         
    
+        
+        
         
         guard let url = Bundle.main.url(forResource: "CountryCityDataLarge", withExtension: "csv") else {
             print("Error : no bundle file CountryCityDataLarge.csv")
@@ -53,9 +53,10 @@ struct ModelData {
 
         do {
             let context = container.viewContext
-            try await loadCountryHash(context:context)
+            
+            try await countryImport.loadCountryHash(context:context)
 
-            let cityList = try CityCSV(from: url, countryHash:countryHash, context: context)
+            let cityList = try CityCSV(from: url, countryHash:countryImport.countryHash, context: context)
             
             // Add name and author to identify source of persistent history changes.
             
@@ -67,7 +68,7 @@ struct ModelData {
     }
     
     
-    private mutating func syncCities(with cityPropertiesList: [CityProperties]) async {
+    private mutating func syncCities(with cityPropertiesList: [CityCSVProperties]) async {
         
         let bgContext = container.newBackgroundContext()
         bgContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
@@ -86,7 +87,7 @@ struct ModelData {
             }
         }
     
-    private func newBatchInsertRequest(with propertyList: [CityProperties]) -> NSBatchInsertRequest {
+    private func newBatchInsertRequest(with propertyList: [CityCSVProperties]) -> NSBatchInsertRequest {
         var index = 0
         let total = propertyList.count
 
@@ -101,72 +102,5 @@ struct ModelData {
     }
 
     
-    private mutating func loadCountryHash(context:NSManagedObjectContext) async throws {
-        guard let url = Bundle.main.url(forResource: "CountryEmoji", withExtension: "json") else {
-            print("Error : no bundle file CountryEmoji.json")
-            return
-        }
-        
-        guard let data = try? Data(contentsOf: url) else {
-            print("Error : can't convert to dataCountryEmoji.json ")
-            return
-        }
-        
-        let decoder = JSONDecoder()
 
-        guard let jsonCountryEmojis = try? decoder.decode([CountryEmoji].self, from: data) else {
-            print("Error : can't parse to dataCountryEmoji.json ")
-            return
-        }
-        
-        for countryEmoji in jsonCountryEmojis {
-            guard let country = CountryService.create(name: countryEmoji.name, flag:countryEmoji.emoji,context: context) else {
-                print("Error : Unable to save \(countryEmoji.name)")
-                return
-            }
-            
-            countryHash[countryEmoji.code] = country.id!
-        }
-
-        try context.save()
-    }
-
-    
-    private mutating func getCountryID(_ code : String, name:String,flag : String, context:NSManagedObjectContext)-> UUID {
-        
-        var countryID = countryHash[name]
-        if countryID == nil {
-            let flag = flagForName(name)
-            guard let country = CountryService.create(name: name, flag:flag,context: context) else {
-                return UUID()
-            }
-            
-            countryHash[name] = country.id!
-            
-            countryID = country.id
-        }
-        
-        return countryID!
-    }
-    
-    
-    private func createCity(city:String,population:Int=0, latitude:Double, longitude:Double, countryID: UUID, context:NSManagedObjectContext){
-        
-        let _ = CityService.create(name:city,countryID: countryID,population: population,latitude: latitude,longitude: longitude,context: context)
-    }
-    
-    private func flagForName(_ name: String) -> String {
-        
-        switch name {
-        case "China" :
-            return "🇨🇳"
-        case "United States" :
-            return "🇺🇸"
-        case "Canada" :
-            return "🇨🇦"
-        default :
-            return "?"
-        }
-        
-    }
 }

@@ -16,6 +16,10 @@
 		5454753728F41C7400BC704C /* NavigationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5454753628F41C7400BC704C /* NavigationRouter.swift */; };
 		5454753B28F443C800BC704C /* CityServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5454753A28F443C800BC704C /* CityServiceTests.swift */; };
 		5454753D28F443DB00BC704C /* CountryServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5454753C28F443DB00BC704C /* CountryServiceTests.swift */; };
+		545D0548290BE93E0025BA0A /* CityCSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545D0547290BE93E0025BA0A /* CityCSV.swift */; };
+		545D054A290BEA0D0025BA0A /* CityCSVProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545D0549290BEA0D0025BA0A /* CityCSVProperties.swift */; };
+		545D054C290C141B0025BA0A /* CountryImport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545D054B290C141B0025BA0A /* CountryImport.swift */; };
+		545D054E290C14620025BA0A /* CountryEmoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545D054D290C14620025BA0A /* CountryEmoji.swift */; };
 		5464839528FDF3850024417A /* CountryListViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5464839428FDF3850024417A /* CountryListViewTests.swift */; };
 		5464839728FDFB550024417A /* CountryCityDataLarge_ORG.csv in Resources */ = {isa = PBXBuildFile; fileRef = 5464839628FDFB550024417A /* CountryCityDataLarge_ORG.csv */; };
 		5464839928FE00530024417A /* CountryCityDataLarge.csv in Resources */ = {isa = PBXBuildFile; fileRef = 5464839828FE00530024417A /* CountryCityDataLarge.csv */; };
@@ -77,6 +81,10 @@
 		5454753628F41C7400BC704C /* NavigationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationRouter.swift; sourceTree = "<group>"; };
 		5454753A28F443C800BC704C /* CityServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityServiceTests.swift; sourceTree = "<group>"; };
 		5454753C28F443DB00BC704C /* CountryServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryServiceTests.swift; sourceTree = "<group>"; };
+		545D0547290BE93E0025BA0A /* CityCSV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityCSV.swift; sourceTree = "<group>"; };
+		545D0549290BEA0D0025BA0A /* CityCSVProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityCSVProperties.swift; sourceTree = "<group>"; };
+		545D054B290C141B0025BA0A /* CountryImport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryImport.swift; sourceTree = "<group>"; };
+		545D054D290C14620025BA0A /* CountryEmoji.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryEmoji.swift; sourceTree = "<group>"; };
 		5464839428FDF3850024417A /* CountryListViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryListViewTests.swift; sourceTree = "<group>"; };
 		5464839628FDFB550024417A /* CountryCityDataLarge_ORG.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CountryCityDataLarge_ORG.csv; sourceTree = "<group>"; };
 		5464839828FE00530024417A /* CountryCityDataLarge.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CountryCityDataLarge.csv; sourceTree = "<group>"; };
@@ -176,6 +184,17 @@
 				5454753C28F443DB00BC704C /* CountryServiceTests.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		545D0546290BE9200025BA0A /* Import */ = {
+			isa = PBXGroup;
+			children = (
+				545D0547290BE93E0025BA0A /* CityCSV.swift */,
+				545D0549290BEA0D0025BA0A /* CityCSVProperties.swift */,
+				545D054B290C141B0025BA0A /* CountryImport.swift */,
+				545D054D290C14620025BA0A /* CountryEmoji.swift */,
+			);
+			path = Import;
 			sourceTree = "<group>";
 		};
 		5464839328FDF2470024417A /* Views */ = {
@@ -278,6 +297,7 @@
 		54D680F428F27F3500B43C86 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				545D0546290BE9200025BA0A /* Import */,
 				54D6810428F2846D00B43C86 /* Entities */,
 				54D680FD28F280DA00B43C86 /* Services */,
 				54447F5528F95B100005879E /* ModelData.swift */,
@@ -491,6 +511,7 @@
 				54D6810828F2849600B43C86 /* CityView.swift in Sources */,
 				5454753728F41C7400BC704C /* NavigationRouter.swift in Sources */,
 				54D680D228F27DFD00B43C86 /* CoreDataDemo.xcdatamodeld in Sources */,
+				545D054A290BEA0D0025BA0A /* CityCSVProperties.swift in Sources */,
 				54447F5628F95B100005879E /* ModelData.swift in Sources */,
 				54D680FA28F27F5500B43C86 /* Country+CoreDataProperties.swift in Sources */,
 				54D6811028F2882F00B43C86 /* CountryListView.swift in Sources */,
@@ -500,13 +521,16 @@
 				544E513C28F57B5700D608BB /* CountryViewModel.swift in Sources */,
 				54D6811228F2D28100B43C86 /* CityListView.swift in Sources */,
 				54D680C828F27DFC00B43C86 /* ContentView.swift in Sources */,
+				545D0548290BE93E0025BA0A /* CityCSV.swift in Sources */,
 				5439DAC028F620250000C633 /* CityViewModel.swift in Sources */,
 				54D680FC28F27F5500B43C86 /* City+CoreDataProperties.swift in Sources */,
 				54D6810128F280FA00B43C86 /* EntityService.swift in Sources */,
 				54D680F928F27F5500B43C86 /* Country+CoreDataClass.swift in Sources */,
+				545D054E290C14620025BA0A /* CountryEmoji.swift in Sources */,
 				54D680FB28F27F5500B43C86 /* City+CoreDataClass.swift in Sources */,
 				54D680C628F27DFC00B43C86 /* CoreDataDemoApp.swift in Sources */,
 				544E514028F5891200D608BB /* StatisticsView.swift in Sources */,
+				545D054C290C141B0025BA0A /* CountryImport.swift in Sources */,
 				54D680FF28F280ED00B43C86 /* CountryService.swift in Sources */,
 				54D6810328F282AF00B43C86 /* CityService.swift in Sources */,
 				54DDA03528F6DFF3009FD0D9 /* FilteredList.swift in Sources */,
