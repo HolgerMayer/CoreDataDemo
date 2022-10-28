@@ -66,11 +66,11 @@ struct CountryListView: View {
                  HStack {
                      Button("clear") {
                          
-                         PersistenceController.clearData(viewContext: viewContext)
-                         
+                         Task {
+                                 await PersistenceController.clearData(viewContext: viewContext)
+                         }
                          needsUpdate.toggle()
-                         
-                     }
+                      }
                      .accessibilityIdentifier("ClearDataButton")
                      
                      Button("load 1000") {

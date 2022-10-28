@@ -72,14 +72,14 @@ struct PersistenceController {
     
     static func loadData(_ noOfCities : Int = -1,viewContext : NSManagedObjectContext) async throws{
         
-       clearData(viewContext: viewContext)
+       await clearData(viewContext: viewContext)
         
         var modelData = ModelData()
         
         await modelData.load(noOfCities, container:self.shared.container)
     }
     
-    static func clearData(viewContext: NSManagedObjectContext){
+    static func clearData(viewContext: NSManagedObjectContext) async {
         // remove all objects from entities
         do {
             try CityService.deleteAll(viewContext)
