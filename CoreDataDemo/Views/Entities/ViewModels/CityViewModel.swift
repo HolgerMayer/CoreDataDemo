@@ -35,13 +35,13 @@ class CityViewModel : ObservableObject {
     }
     
     
-    init(city: City){
-        self.name = city.name ?? ""
-        self.population = Int(city.population)
-        self.isCapital = city.capital
-        self.countryID = city.countryID ?? UUID()
+    init(city: City?){
+        self.name = city?.name ?? ""
+        self.population = Int(city?.population ?? 0)
+        self.isCapital = city?.capital ?? false
+        self.countryID = city?.countryID ?? UUID()
         self.dataItem = city
-        self.region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: city.latitude, longitude:city.longitude), span: MKCoordinateSpan(latitudeDelta:city.latitudeDelta, longitudeDelta:city.longitudeDelta))
+        self.region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: city?.latitude ?? 0.0, longitude:city?.longitude ?? 0.0), span: MKCoordinateSpan(latitudeDelta:city?.latitudeDelta ?? 0.5, longitudeDelta:city?.longitudeDelta ?? 0.5))
         self.isEditing = false
         
     }

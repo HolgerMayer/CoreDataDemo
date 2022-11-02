@@ -23,34 +23,43 @@ struct CityView: View {
             } else {
                 readonlySection
             }
-/*
-            Section {
-                VStack{
-                    Map(coordinateRegion: $formVM.region)
-                        .frame(height: 300)
-                    HStack{
-                        Text("Zoom In").onTapGesture {
-                            formVM.region.span.latitudeDelta *= 0.9
-                            formVM.region.span.longitudeDelta *= 0.9
-                        }
-                        Text("Zoom Out").onTapGesture {
-                            formVM.region.span.latitudeDelta /= 0.9
-                            formVM.region.span.longitudeDelta /= 0.9
-                        }
-                    }
-                }
-            }
-*/
+            /*
+             Section {
+             VStack{
+             Map(coordinateRegion: $formVM.region)
+             .frame(height: 300)
+             HStack{
+             Text("Zoom In").onTapGesture {
+             formVM.region.span.latitudeDelta *= 0.9
+             formVM.region.span.longitudeDelta *= 0.9
+             }
+             Text("Zoom Out").onTapGesture {
+             formVM.region.span.latitudeDelta /= 0.9
+             formVM.region.span.longitudeDelta /= 0.9
+             }
+             }
+             }
+             }
+             */
         }
         .task {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 prepareFocus()
                 
             }
-        }.toolbar{
+        }
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                HStack {
+                    Text("Select a Country and a City").hidden( formVM.dataItem != nil )
+                    Text("City").font(.headline).hidden( formVM.dataItem == nil )
+                    Spacer()
+                }
+            }
             ToolbarItem(placement:.navigationBarTrailing) {
                 HStack {
-                        updateSaveButton
+                    updateSaveButton
                 }
             }
             ToolbarItemGroup(placement: .keyboard) {
@@ -58,7 +67,6 @@ struct CityView: View {
             }
         }
     }
-    
     
     var editableSection : some View {
         Section {
@@ -126,7 +134,7 @@ struct CityView: View {
         }
     }
     
-    init(city:City){
+    init(city:City?){
         formVM = CityViewModel(city: city)
     }
     

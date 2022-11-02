@@ -11,7 +11,7 @@ import CoreData
 struct CityListView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @EnvironmentObject var navigationRouter : NavigationRouter
-    private var country : Country
+    private var country : Country?
     
     // edit sheet is used for creation
     @State private var showEditSheet = false
@@ -32,10 +32,11 @@ struct CityListView: View {
                     Text(city.name ?? "")
                 }
         }
+            .hidden(country == nil)
         .searchable(text: $filterString, prompt: "Search")
         .sheet(isPresented: $showEditSheet ) {
             NavigationStack {
-                CityView(country:country)
+                CityView(country:country!)
                     .navigationBarTitle("Add city")
             }
         }
@@ -53,8 +54,8 @@ struct CityListView: View {
         .toolbar {
                    ToolbarItem(placement: .principal) {
                        HStack {
-                           Text(country.flag ?? "?").font(.system(size: 48))
-                           Text(country.name ?? "?").font(.headline)
+                           Text(country?.flag ?? " ").font(.system(size: 48))
+                           Text(country?.name ?? "Select a country").font(.headline)
                           
                        }
                    }
@@ -62,14 +63,14 @@ struct CityListView: View {
         }
     }
     
-    init(country : Country){
+    init(country : Country?){
         self.country = country
     }
     
   
     
     private func queryPredicate() -> NSPredicate {
-        let cid = country.id ?? UUID()
+        let cid = country?.id ?? UUID()
 
         if filterString.isEmpty {
             return  NSPredicate(format: "(countryID == %@)",cid as NSUUID)

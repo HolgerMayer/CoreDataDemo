@@ -18,17 +18,9 @@ struct ContentView: View {
             CountryListView()
                 .navigationTitle("Countries")
         } content: {
-            if navigationRouter.selectedCountry == nil {
-                Text("Select a Country")
-            } else {
-                CityListView(country: navigationRouter.selectedCountry!)
-            }
+                CityListView(country: navigationRouter.selectedCountry).hidden(navigationRouter.selectedCountry == nil)
         } detail: {
-            if navigationRouter.selectedCity == nil {
-                Text("Select a Country and a City")
-            } else {
-                CityView(city: navigationRouter.selectedCity!)
-            }
+                 CityView(city: navigationRouter.selectedCity).hidden( navigationRouter.selectedCity == nil )
        }
         .navigationSplitViewStyle(.balanced)
     }

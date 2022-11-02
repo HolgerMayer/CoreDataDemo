@@ -18,7 +18,7 @@ struct CityCSV  {
     
     var cityPropertiesList = [CityCSVProperties]()
     
-    init(from url:URL, countryHash : [String: UUID] , context : NSManagedObjectContext) throws {
+    init(noOfCities: Int, from url:URL, countryHash : [String: UUID] , context : NSManagedObjectContext) throws {
         
         self.countryHash = countryHash
         
@@ -38,6 +38,7 @@ struct CityCSV  {
                                  delimiter:";"
         )
  
+        var count = 0
         while csv.next() != nil {
             
             guard let countryCode = csv["CountryCode"] else {
@@ -67,6 +68,12 @@ struct CityCSV  {
             
             let cityProperties = CityCSVProperties(countryID: countryID, name: city, population: population, coordinate: coordinate)
             cityPropertiesList.append(cityProperties)
+            
+            count = count + 1
+            
+            if noOfCities > 0 && count > noOfCities {
+                return
+            }
         }
     }
     

@@ -51,6 +51,7 @@
 		54D6811228F2D28100B43C86 /* CityListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D6811128F2D28100B43C86 /* CityListView.swift */; };
 		54DDA03528F6DFF3009FD0D9 /* FilteredList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DDA03428F6DFF3009FD0D9 /* FilteredList.swift */; };
 		54DDA03828F73DB6009FD0D9 /* String+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DDA03728F73DB6009FD0D9 /* String+ext.swift */; };
+		54F42EFC2911C36A0016C556 /* View+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F42EFB2911C36A0016C556 /* View+ext.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -118,6 +119,7 @@
 		54D6811128F2D28100B43C86 /* CityListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityListView.swift; sourceTree = "<group>"; };
 		54DDA03428F6DFF3009FD0D9 /* FilteredList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilteredList.swift; sourceTree = "<group>"; };
 		54DDA03728F73DB6009FD0D9 /* String+ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+ext.swift"; sourceTree = "<group>"; };
+		54F42EFB2911C36A0016C556 /* View+ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+ext.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -363,6 +365,7 @@
 			isa = PBXGroup;
 			children = (
 				54DDA03728F73DB6009FD0D9 /* String+ext.swift */,
+				54F42EFB2911C36A0016C556 /* View+ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -515,6 +518,7 @@
 				54447F5628F95B100005879E /* ModelData.swift in Sources */,
 				54D680FA28F27F5500B43C86 /* Country+CoreDataProperties.swift in Sources */,
 				54D6811028F2882F00B43C86 /* CountryListView.swift in Sources */,
+				54F42EFC2911C36A0016C556 /* View+ext.swift in Sources */,
 				54DDA03828F73DB6009FD0D9 /* String+ext.swift in Sources */,
 				54D6810E28F287BF00B43C86 /* CountryView.swift in Sources */,
 				544E513E28F57F7700D608BB /* AppSymbol.swift in Sources */,

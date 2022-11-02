@@ -56,7 +56,7 @@ struct ModelData {
             
             try await countryImport.loadCountryHash(context:context)
 
-            let cityList = try CityCSV(from: url, countryHash:countryImport.countryHash, context: context)
+            let cityList = try CityCSV(noOfCities : noOfCities,from: url, countryHash:countryImport.countryHash, context: context)
             
             // Add name and author to identify source of persistent history changes.
             
