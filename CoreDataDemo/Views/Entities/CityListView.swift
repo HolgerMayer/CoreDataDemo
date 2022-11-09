@@ -19,6 +19,28 @@ struct CityListView: View {
     @State private var needsUpdate = false
     
     
+    @FetchRequest(sortDescriptors: [])
+    var cities: FetchedResults<City>
+    
+    var body: some View {
+        Text("Cities : \(cities.count)")
+        
+        VStack {
+            List(selection:$navigationRouter.selectedCity) {
+                ForEach(cities, id: \.id) { city in
+                    Text(city.name ?? "Unknown")
+                }
+            }
+ 
+        }.hidden(country == nil)
+            .onAppear(){
+                cities.nsPredicate = queryPredicate()
+            }
+            .onChange(of: navigationRouter.selectedCountry) { newValue in
+                cities.nsPredicate = queryPredicate()
+                    }
+    }
+   /*
     var body: some View {
         FilteredList(context: viewContext,predicate:queryPredicate(),sortDescriptors:sortDescriptors(), selection:$navigationRouter.selectedCity, deleteHandler: {city in
             navigationRouter.resetAll()
@@ -28,9 +50,7 @@ struct CityListView: View {
                 }
             }) { (city: City) in
 
-                NavigationLink(value: city){
                     Text(city.name ?? "")
-                }
         }
             .hidden(country == nil)
         .searchable(text: $filterString, prompt: "Search")
@@ -40,7 +60,8 @@ struct CityListView: View {
                     .navigationBarTitle("Add city")
             }
         }
-        .toolbar{
+         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
             ToolbarItem {
                 Button(action: addCity) {
                     Label(title: {Text("Add city")}, icon: {
@@ -48,11 +69,7 @@ struct CityListView: View {
                     })
                 }
             }
-
-        }
-         .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-                   ToolbarItem(placement: .principal) {
+                 ToolbarItem(placement: .principal) {
                        HStack {
                            Text(country?.flag ?? " ").font(.system(size: 48))
                            Text(country?.name ?? "Select a country").font(.headline)
@@ -62,6 +79,7 @@ struct CityListView: View {
                                 
         }
     }
+    */
     
     init(country : Country?){
         self.country = country

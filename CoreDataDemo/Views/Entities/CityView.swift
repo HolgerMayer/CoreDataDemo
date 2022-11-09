@@ -13,9 +13,30 @@ struct CityView: View {
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.managedObjectContext) private var viewContext
     
-    @ObservedObject var formVM : CityViewModel
-    @FocusState private var focus: AnyKeyPath?
+    var formVM : CityViewModel
+
+    var body: some View {
+        Form {
+            Section {
+                Text(formVM.name)
+                Text("\(formVM.population)")
+                
+            }
+        }
+
+        
+    }
     
+    init(city:City?){
+        formVM = CityViewModel(city: city)
+    }
+    
+    init(country: Country){
+        formVM = CityViewModel(country:country)
+     }
+    
+    //    @FocusState private var focus: AnyKeyPath?
+    /*
     var body: some View {
         Form {
             if (formVM.isEditing) {
@@ -174,6 +195,7 @@ extension CityView { // FOCUS
             break
         }
     }
+     */
 }
 
 
