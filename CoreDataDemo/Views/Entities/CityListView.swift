@@ -23,25 +23,6 @@ struct CityListView: View {
     var cities: FetchedResults<City>
     
     var body: some View {
-        Text("Cities : \(cities.count)")
-        
-        VStack {
-            List(selection:$navigationRouter.selectedCity) {
-                ForEach(cities, id: \.id) { city in
-                    Text(city.name ?? "Unknown")
-                }
-            }
- 
-        }.hidden(country == nil)
-            .onAppear(){
-                cities.nsPredicate = queryPredicate()
-            }
-            .onChange(of: navigationRouter.selectedCountry) { newValue in
-                cities.nsPredicate = queryPredicate()
-                    }
-    }
-   /*
-    var body: some View {
         FilteredList(context: viewContext,predicate:queryPredicate(),sortDescriptors:sortDescriptors(), selection:$navigationRouter.selectedCity, deleteHandler: {city in
             navigationRouter.resetAll()
                 withAnimation{
@@ -79,7 +60,7 @@ struct CityListView: View {
                                 
         }
     }
-    */
+    
     
     init(country : Country?){
         self.country = country
@@ -88,6 +69,10 @@ struct CityListView: View {
   
     
     private func queryPredicate() -> NSPredicate {
+        if self.country == nil {
+            return NSPredicate(format: "1 == 0")
+        }
+        
         let cid = country?.id ?? UUID()
 
         if filterString.isEmpty {

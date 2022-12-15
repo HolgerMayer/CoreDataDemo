@@ -9,34 +9,14 @@ import SwiftUI
 import MapKit
 
 struct CityView: View {
-
+    
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.managedObjectContext) private var viewContext
     
-    var formVM : CityViewModel
-
-    var body: some View {
-        Form {
-            Section {
-                Text(formVM.name)
-                Text("\(formVM.population)")
-                
-            }
-        }
-
-        
-    }
+    @ObservedObject var formVM : CityViewModel
     
-    init(city:City?){
-        formVM = CityViewModel(city: city)
-    }
+    @FocusState private var focus: AnyKeyPath?
     
-    init(country: Country){
-        formVM = CityViewModel(country:country)
-     }
-    
-    //    @FocusState private var focus: AnyKeyPath?
-    /*
     var body: some View {
         Form {
             if (formVM.isEditing) {
@@ -44,24 +24,24 @@ struct CityView: View {
             } else {
                 readonlySection
             }
-            /*
-             Section {
-             VStack{
-             Map(coordinateRegion: $formVM.region)
-             .frame(height: 300)
-             HStack{
-             Text("Zoom In").onTapGesture {
-             formVM.region.span.latitudeDelta *= 0.9
-             formVM.region.span.longitudeDelta *= 0.9
-             }
-             Text("Zoom Out").onTapGesture {
-             formVM.region.span.latitudeDelta /= 0.9
-             formVM.region.span.longitudeDelta /= 0.9
-             }
-             }
-             }
-             }
-             */
+            
+            Section {
+                VStack{
+                    Map(coordinateRegion: $formVM.region)
+                        .frame(height: 300)
+                    HStack{
+                        Text("Zoom In").onTapGesture {
+                            formVM.region.span.latitudeDelta *= 0.9
+                            formVM.region.span.longitudeDelta *= 0.9
+                        }
+                        Text("Zoom Out").onTapGesture {
+                            formVM.region.span.latitudeDelta /= 0.9
+                            formVM.region.span.longitudeDelta /= 0.9
+                        }
+                    }
+                }
+            }
+            
         }
         .task {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
@@ -96,7 +76,7 @@ struct CityView: View {
             TextField("Population", value: $formVM.population, format: .number)
                 .focused($focus,equals: \CityViewModel.population)
             Toggle("Capital", isOn: $formVM.isCapital)
-          }  footer: {
+        }  footer: {
             Text("Name is required")
                 .font(.caption)
                 .foregroundColor(formVM.name.isBlank ? .red : .clear)
@@ -137,7 +117,7 @@ struct CityView: View {
     var focusToolbarButtons : some View {
         HStack {
             Button {
-               previousFocus()
+                previousFocus()
             } label: {
                 Image(systemName: "arrow.backward.to.line")
             }
@@ -161,7 +141,7 @@ struct CityView: View {
     
     init(country: Country){
         formVM = CityViewModel(country:country)
-     }
+    }
 }
 
 
@@ -171,7 +151,7 @@ struct CityView: View {
 extension CityView { // FOCUS
     
     func prepareFocus() {
-            focus = \CityViewModel.name
+        focus = \CityViewModel.name
     }
     
     func nextFocus() {
@@ -180,7 +160,7 @@ extension CityView { // FOCUS
             focus = \CityViewModel.population
         case \CityViewModel.population:
             focus = \CityViewModel.name
-       default:
+        default:
             break
         }
     }
@@ -191,11 +171,11 @@ extension CityView { // FOCUS
             focus = \CityViewModel.name
         case \CityViewModel.name:
             focus = \CityViewModel.population
-      default:
+        default:
             break
         }
     }
-     */
+    
 }
 
 
